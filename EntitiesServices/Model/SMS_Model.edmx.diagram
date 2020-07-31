@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5f8ab6cbaa5b4cfc9f6b9f8b4c89a71c" Name="Diagram1">
+        <EntityTypeShape EntityType="SMS_DatabaseModel.ASSINANTE" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.CATEGORIA_NOTIFICACAO" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.CONFIGURACAO" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.LOG" Width="1.5" PointX="6" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.NOTIFICACAO" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.NOTIFICACAO_ANEXO" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.PAIS" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.PERFIL" Width="1.5" PointX="0.75" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.UF" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.USUARIO" Width="1.5" PointX="3" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.USUARIO_ANEXO" Width="1.5" PointX="5.25" PointY="16" IsExpanded="true" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_CONFIGURACAO_ASSINANTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_LOG_ASSINANTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_LOG_ASSINANTE1" ManuallyRouted="false" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_NOTIFICACAO_ASSINANTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_USUARIO_ASSINANTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_NOTIFICACAO_CATEGORIA_NOTIFICACAO" ManuallyRouted="false" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_LOG_USUARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_NOTIFICACAO_ANEXO_NOTIFICACAO" ManuallyRouted="false" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_USUARIO_PERFIL" ManuallyRouted="false" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_USUARIO_ANEXO_USUARIO" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.NOTICIA" Width="1.5" PointX="3" PointY="22.375" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.NOTICIA_COMENTARIO" Width="1.5" PointX="5.25" PointY="19.875" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_NOTICIA_ASSINANTE" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_NOTICIA_COMENTARIO_NOTICIA" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_NOTICIA_COMENTARIO_USUARIO" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_NOTIFICACAO_USUARIO" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.ASSINANTE_ANEXO" Width="1.5" PointX="3" PointY="31" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.CAMPANHA" Width="1.5" PointX="3" PointY="27.5" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.CAMPANHA_CONTATO" Width="1.5" PointX="10.25" PointY="15.875" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.CATEGORIA_CONTATO" Width="1.5" PointX="5.75" PointY="26.625" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.CLUBE" Width="1.5" PointX="5.75" PointY="29.125" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.CONTATO" Width="1.5" PointX="8" PointY="3.75" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.ORIGEM" Width="1.5" PointX="5.75" PointY="1.5" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.PROFISSAO" Width="1.5" PointX="5.75" PointY="24" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_ASSINANTE_ANEXO_ASSINANTE" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_ASSINANTE_UF" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_CAMPANHA_ASSINANTE" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_CONTATO_ASSINANTE" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_CAMPANHA_CONTATO_CAMPANHA" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_CAMPANHA_CONTATO_CONTATO" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_CONTATO_CATEGORIA_CONTATO" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_CONTATO_CLUBE" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_CONTATO_ORIGEM" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_CONTATO_PROFISSAO" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_CONTATO_UF" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.TEMPLATE" Width="1.5" PointX="3" PointY="34.625" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_TEMPLATE_ASSINANTE" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.TEMPLATE_EMAIL" Width="1.5" PointX="10.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.GRUPO" Width="1.5" PointX="3" PointY="38.375" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.GRUPO_CONTATO" Width="1.5" PointX="10.25" PointY="21.125" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_GRUPO_ASSINANTE" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_GRUPO_CONTATO_CONTATO" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_GRUPO_CONTATO_GRUPO" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.CAMPANHA_GRUPO" Width="1.5" PointX="5.25" PointY="33.375" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_CAMPANHA_GRUPO_CAMPANHA" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_CAMPANHA_GRUPO_GRUPO" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_TEMPLATE_CAMPANHA" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_CLUBE_UF" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
