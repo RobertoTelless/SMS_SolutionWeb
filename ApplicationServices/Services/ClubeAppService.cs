@@ -84,6 +84,7 @@ namespace ApplicationServices.Services
             try
             {
                 // Checa existencia
+                item.CONTATO = null;
                 if (item.CLUB_NM_NOME != itemAntes.CLUB_NM_NOME)
                 {
                     if (_baseService.CheckExist(item) != null)
@@ -93,19 +94,19 @@ namespace ApplicationServices.Services
                 }
 
                 // Monta Log
-                LOG log = new LOG
-                {
-                    LOG_DT_DATA = DateTime.Now,
-                    USUA_CD_ID = usuario.USUA_CD_ID,
-                    ASSI_CD_ID = idAss.Value,
-                    LOG_NM_OPERACAO = "EditCLUB",
-                    LOG_IN_ATIVO = 1,
-                    LOG_TX_REGISTRO = Serialization.SerializeJSON<CLUBE>(item),
-                    LOG_TX_REGISTRO_ANTES = Serialization.SerializeJSON<CLUBE>(itemAntes)
-                };
+                //LOG log = new LOG
+                //{
+                //    LOG_DT_DATA = DateTime.Now,
+                //    USUA_CD_ID = usuario.USUA_CD_ID,
+                //    ASSI_CD_ID = idAss.Value,
+                //    LOG_NM_OPERACAO = "EditCLUB",
+                //    LOG_IN_ATIVO = 1,
+                //    LOG_TX_REGISTRO = Serialization.SerializeJSON<CLUBE>(item),
+                //    LOG_TX_REGISTRO_ANTES = Serialization.SerializeJSON<CLUBE>(itemAntes)
+                //};
 
                 // Persiste
-                return _baseService.Edit(item, log);
+                return _baseService.Edit(item);
             }
             catch (Exception ex)
             {
@@ -127,18 +128,18 @@ namespace ApplicationServices.Services
                 item.CLUB_IN_ATIVO = 0;
 
                 // Monta Log
-                LOG log = new LOG
-                {
-                    LOG_DT_DATA = DateTime.Now,
-                    USUA_CD_ID = usuario.USUA_CD_ID,
-                    ASSI_CD_ID = idAss.Value,
-                    LOG_IN_ATIVO = 1,
-                    LOG_NM_OPERACAO = "DelCLUB",
-                    LOG_TX_REGISTRO = Serialization.SerializeJSON<CLUBE>(item)
-                };
+                //LOG log = new LOG
+                //{
+                //    LOG_DT_DATA = DateTime.Now,
+                //    USUA_CD_ID = usuario.USUA_CD_ID,
+                //    ASSI_CD_ID = idAss.Value,
+                //    LOG_IN_ATIVO = 1,
+                //    LOG_NM_OPERACAO = "DelCLUB",
+                //    LOG_TX_REGISTRO = Serialization.SerializeJSON<CLUBE>(item)
+                //};
 
                 // Persiste
-                return _baseService.Edit(item, log);
+                return _baseService.Edit(item);
             }
             catch (Exception ex)
             {
@@ -156,18 +157,18 @@ namespace ApplicationServices.Services
                 item.CLUB_IN_ATIVO = 1;
 
                 // Monta Log
-                LOG log = new LOG
-                {
-                    LOG_DT_DATA = DateTime.Now,
-                    USUA_CD_ID = usuario.USUA_CD_ID,
-                    ASSI_CD_ID = idAss.Value,
-                    LOG_IN_ATIVO = 1,
-                    LOG_NM_OPERACAO = "ReatClUB",
-                    LOG_TX_REGISTRO = Serialization.SerializeJSON<CLUBE>(item)
-                };
+                //LOG log = new LOG
+                //{
+                //    LOG_DT_DATA = DateTime.Now,
+                //    USUA_CD_ID = usuario.USUA_CD_ID,
+                //    ASSI_CD_ID = idAss.Value,
+                //    LOG_IN_ATIVO = 1,
+                //    LOG_NM_OPERACAO = "ReatClUB",
+                //    LOG_TX_REGISTRO = Serialization.SerializeJSON<CLUBE>(item)
+                //};
 
                 // Persiste
-                return _baseService.Edit(item, log);
+                return _baseService.Edit(item);
             }
             catch (Exception ex)
             {

@@ -95,6 +95,13 @@ namespace DataServices.Repositories
             return query.ToList();
         }
 
+        public List<USUARIO> GetAllUsuariosAdm()
+        {
+            IQueryable<USUARIO> query = Db.USUARIO;
+            query = query.Include(p => p.PERFIL);
+            return query.ToList();
+        }
+
         public List<USUARIO> ExecuteFilter(Int32? perfilId, String cargo, String nome, String login, String email, Int32? idAss)
         {
             List<USUARIO> lista = new List<USUARIO>();
@@ -122,6 +129,38 @@ namespace DataServices.Repositories
             if (query != null)
             {
                 query = query.Where(p => p.ASSI_CD_ID == idAss);
+                query = query.OrderBy(a => a.USUA_NM_EMAIL);
+                lista = query.ToList<USUARIO>();
+            }
+            return lista;
+        }
+
+        public List<USUARIO> ExecuteFilter(Int32? perfilId, String cargo, String nome, String login, String email)
+        {
+            List<USUARIO> lista = new List<USUARIO>();
+            IQueryable<USUARIO> query = Db.USUARIO;
+            if (!String.IsNullOrEmpty(email))
+            {
+                query = query.Where(p => p.USUA_NM_EMAIL == email);
+            }
+            if (!String.IsNullOrEmpty(nome))
+            {
+                query = query.Where(p => p.USUA_NM_NOME.Contains(nome));
+            }
+            if (!String.IsNullOrEmpty(login))
+            {
+                query = query.Where(p => p.USUA_NM_LOGIN == login);
+            }
+            if (perfilId != 0)
+            {
+                query = query.Where(p => p.PERFIL.PERF_CD_ID == perfilId);
+            }
+            //if (cargoId != 0)
+            //{
+            //    query = query.Where(p => p.CARGO.CARG_CD_ID == cargoId);
+            //}
+            if (query != null)
+            {
                 query = query.OrderBy(a => a.USUA_NM_EMAIL);
                 lista = query.ToList<USUARIO>();
             }

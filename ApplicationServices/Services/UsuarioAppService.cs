@@ -38,6 +38,11 @@ namespace ApplicationServices.Services
             return _usuarioService.GetAllUsuariosAdm(idAss);
         }
 
+        public List<USUARIO> GetAllUsuariosAdm()
+        {
+            return _usuarioService.GetAllUsuariosAdm();
+        }
+
         public USUARIO GetItemById(Int32 id)
         {
             return _usuarioService.GetItemById(id);
@@ -720,6 +725,27 @@ namespace ApplicationServices.Services
 
                 // Processa filtro
                 objeto = _usuarioService.ExecuteFilter(perfilId, cargo, nome, login, email, idAss);
+                if (objeto.Count == 0)
+                {
+                    volta = 1;
+                }
+                return volta;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public Int32 ExecuteFilter(Int32? perfilId, String cargo, String nome, String login, String email, out List<USUARIO> objeto)
+        {
+            try
+            {
+                objeto = new List<USUARIO>();
+                Int32 volta = 0;
+
+                // Processa filtro
+                objeto = _usuarioService.ExecuteFilter(perfilId, cargo, nome, login, email);
                 if (objeto.Count == 0)
                 {
                     volta = 1;

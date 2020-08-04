@@ -61,6 +61,13 @@
                     </div>
                 </div>
                 <div class="ibox-content">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">Fechar</button>
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        </div>
+                    }
                     <div class="row">
                             @if ((ViewBag.Listas as List<EntitiesServices.Model.ORIGEM>).Count > 0)                                        {
                                 <table class="table table-striped table-bordered table-hover dataTables-example">
@@ -76,7 +83,7 @@
                                             <tr>
                                                 <td>@cond.ORIG_NM_NOME</td>
                                                 <td class="td-one-action">
-                                                    @Html.TableLinkDetails(cond.ORIG_CD_ID, "EditarCategoriaOrigem","fa-edit", "Editar/Consultar")
+                                                    @Html.TableLinkDetails(cond.ORIG_CD_ID, "EditarOrigem","fa-edit", "Editar/Consultar")
                                                     @if (cond.ORIG_IN_ATIVO == 1)
 	                                                {
                                                         @Html.TableLinkDetails(cond.ORIG_CD_ID, "ExcluirOrigem","fa-trash-o", "Desativar")

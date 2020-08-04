@@ -94,6 +94,9 @@ namespace SMS_Presentation.Controllers
             }
 
             // Abre view
+            Session["ModoUsuario"] = 0;
+            ViewBag.Modo = 0;
+            Session["MensUsuario"] = 0;
             objeto = new USUARIO();
             return View(objeto);
         }
@@ -371,7 +374,18 @@ namespace SMS_Presentation.Controllers
             Session["ListaUsuarios"] = baseApp.GetAllUsuarios(idAss);
             return RedirectToAction("MontarTelaUsuario");
         }
-        
+
+        public ActionResult VoltarBaseAdm()
+        {
+            if ((String)Session["Ativa"] == null)
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+            Int32 idAss = (Int32)Session["IdAssinante"];
+            Session["ListaUsuariosAdm"] = baseApp.GetAllUsuariosAdm();
+            return RedirectToAction("MontarTelaUsuarioAdm");
+        }
+
         [HttpGet]
         public ActionResult BloquearUsuario(Int32 id)
         {
@@ -1580,6 +1594,104 @@ namespace SMS_Presentation.Controllers
                 return RedirectToAction("Login", "ControleAcesso");
             }
             return RedirectToAction("TrocarSenha", "ControleAcesso");
+        }
+
+        [HttpGet]
+        public ActionResult MontarTelaUsuarioAdm()
+        {
+            // Verifica se tem usuario logado
+            if ((String)Session["Ativa"] == null)
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+            Int32 idAss = (Int32)Session["IdAssinante"];
+            USUARIO usuario = new USUARIO();
+            if ((USUARIO)Session["UserCredentials"] != null)
+            {
+                usuario = (USUARIO)Session["UserCredentials"];
+            }
+            else
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+
+            // Carrega listas
+            ViewBag.Perfis = new SelectList((List<PERFIL>)Session["Perfis"], "PERF_CD_ID", "PERF_NM_NOME");
+            if ((List<USUARIO>)Session["ListaUsuarioAdm"] == null)
+            {
+                listaMaster = baseApp.GetAllUsuariosAdm();
+                Session["ListaUsuarioAdm"] = listaMaster;
+            }
+            List<USUARIO> lista = (List<USUARIO>)Session["ListaUsuarioAdm"];
+            ViewBag.Listas = lista;
+            ViewBag.Usuarios = lista.Count;
+
+            ViewBag.UsuariosBloqueados = lista.Where(p => p.USUA_IN_BLOQUEADO == 1).ToList().Count;
+            ViewBag.UsuariosHoje = lista.Where(p => p.USUA_IN_BLOQUEADO == 0 & p.USUA_DT_ACESSO == DateTime.Today.Date).ToList().Count;
+            ViewBag.Title = "Usuários";
+            ViewBag.Perfil = usuario.PERFIL.PERF_SG_SIGLA;
+
+            // Recupera numero de usuarios do assinante
+            Session["NumUsuarios"] = lista.Count;
+
+            // Mensagem
+            if ((Int32)Session["MensUsuarioAdm"] == 1)
+            {
+                ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0016", CultureInfo.CurrentCulture));
+            }
+
+            // Abre view
+            Session["MensUsuario"] = 0;
+            Session["ModoUsuario"] = 1;
+            ViewBag.Modo = 1;
+            objeto = new USUARIO();
+            return View(objeto);
+        }
+
+        public ActionResult RetirarFiltroAdm()
+        {
+            if ((String)Session["Ativa"] == null)
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+            Int32 idAss = (Int32)Session["IdAssinante"];
+            Session["ListaUsuarioAdm"] = null;
+            Session["FiltroUsuarioAdm"] = null;
+            return RedirectToAction("MontarTelaUsuarioAdm");
+        }
+
+        [HttpPost]
+        public ActionResult FiltrarUsuarioAdm(USUARIO item)
+        {
+            try
+            {
+                // Executa a operação
+                if ((String)Session["Ativa"] == null)
+                {
+                    return RedirectToAction("Login", "ControleAcesso");
+                }
+                Int32 idAss = (Int32)Session["IdAssinante"];
+                List<USUARIO> listaObj = new List<USUARIO>();
+                Session["FiltroUsuarioAdm"] = item;
+                Int32 volta = baseApp.ExecuteFilter(item.PERF_CD_ID, null, item.USUA_NM_NOME, item.USUA_NM_LOGIN, item.USUA_NM_EMAIL, out listaObj);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    Session["MensUsuario"] = 1;
+                    ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0016", CultureInfo.CurrentCulture));
+                }
+
+                // Sucesso
+                listaMaster = listaObj;
+                Session["ListaUsuarioAdm"] = listaObj;
+                return RedirectToAction("MontarTelaUsuarioAdm");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction("MontarTelaUsuarioAdm");
+            }
         }
     }
 }

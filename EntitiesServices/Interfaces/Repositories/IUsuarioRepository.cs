@@ -18,6 +18,8 @@ namespace ModelServices.Interfaces.Repositories
         List<USUARIO> GetAllItensAcessoHoje(Int32? idAss);
         List<USUARIO> GetAllUsuariosAdm(Int32? idAss);
         List<USUARIO> ExecuteFilter(Int32? perfilId, String cargo, String nome, String login, String email, Int32? idAss);
+        List<USUARIO> ExecuteFilter(Int32? perfilId, String cargo, String nome, String login, String email);
         USUARIO GetAdministrador(Int32? idAss);
+        List<USUARIO> GetAllUsuariosAdm();
     }
 }

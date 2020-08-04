@@ -48,7 +48,7 @@
                 @using (Html.BeginForm("IncluirProfissao", "TabelaAuxiliar", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
                 {
                     <div class="ibox-content">
-                    @if (!ViewData.ModelState.IsValid)
+                        @if (!ViewData.ModelState.IsValid)
                         {
                             <div class="alert alert-danger">
                                 <button type="button" class="close" data-dismiss="alert">Fechar</button>

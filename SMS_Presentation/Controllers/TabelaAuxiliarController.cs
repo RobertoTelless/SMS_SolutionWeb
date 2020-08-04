@@ -151,7 +151,6 @@ namespace SMS_Presentation.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult IncluirCategoriaContato(CategoriaContatoViewModel vm)
         {
             if ((String)Session["Ativa"] == null)
@@ -218,7 +217,6 @@ namespace SMS_Presentation.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult EditarCategoriaContato(CategoriaContatoViewModel vm)
         {
             if ((String)Session["Ativa"] == null)
@@ -300,7 +298,7 @@ namespace SMS_Presentation.Controllers
             CATEGORIA_CONTATO item = ccApp.GetItemById(id);
             objetoAntesCC = (CATEGORIA_CONTATO)Session["CatContato"];
             item.CACO_IN_ATIVO = 1;
-            Int32 volta = ccApp.ValidateDelete(item, usuario, idAss);
+            Int32 volta = ccApp.ValidateReativar(item, usuario, idAss);
             listaMasterCC = new List<CATEGORIA_CONTATO>();
             Session["ListaCatCont"] = null;
             return RedirectToAction("MontarTelaCategoriaContato");
@@ -388,7 +386,6 @@ namespace SMS_Presentation.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult IncluirClubes(ClubeViewModel vm)
         {
             if ((String)Session["Ativa"] == null)
@@ -416,7 +413,7 @@ namespace SMS_Presentation.Controllers
 
                     // Sucesso
                     listaMasterCC = new List<CATEGORIA_CONTATO>();
-                    Session["ListaClubet"] = null;
+                    Session["ListaClube"] = null;
                     Session["MensClube"] = 0;
                     return RedirectToAction("MontarTelaClubes");
                 }
@@ -457,7 +454,6 @@ namespace SMS_Presentation.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult EditarClubes(ClubeViewModel vm)
         {
             if ((String)Session["Ativa"] == null)
@@ -541,7 +537,7 @@ namespace SMS_Presentation.Controllers
             CLUBE item = clApp.GetItemById(id);
             objetoAntesCL = (CLUBE)Session["Clube"];
             item.CLUB_IN_ATIVO = 1;
-            Int32 volta = clApp.ValidateDelete(item, usuario, idAss);
+            Int32 volta = clApp.ValidateReativar(item, usuario, idAss);
             listaMasterCL = new List<CLUBE>();
             Session["ListaClube"] = null;
             return RedirectToAction("MontarTelaClubes");
@@ -560,7 +556,7 @@ namespace SMS_Presentation.Controllers
             Int32 idAss = (Int32)Session["IdAssinante"];
 
             // Carrega listas
-            if ((List<CATEGORIA_CONTATO>)Session["ListaOrigem"] == null)
+            if ((List<ORIGEM>)Session["ListaOrigem"] == null)
             {
                 listaMasterOR = orApp.GetAllItens();
                 Session["ListaOrigem"] = listaMasterOR;
@@ -628,7 +624,6 @@ namespace SMS_Presentation.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult IncluirOrigem(OrigemViewModel vm)
         {
             if ((String)Session["Ativa"] == null)
@@ -695,7 +690,6 @@ namespace SMS_Presentation.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult EditarOrigem(OrigemViewModel vm)
         {
             if ((String)Session["Ativa"] == null)
@@ -777,7 +771,7 @@ namespace SMS_Presentation.Controllers
             ORIGEM item = orApp.GetItemById(id);
             objetoAntesOR = (ORIGEM)Session["Origem"];
             item.ORIG_IN_ATIVO = 1;
-            Int32 volta = orApp.ValidateDelete(item, usuario, idAss);
+            Int32 volta = orApp.ValidateReativar(item, usuario, idAss);
             listaMasterOR = new List<ORIGEM>();
             Session["ListaOrigem"] = null;
             return RedirectToAction("MontarTelaOrigem");
@@ -864,7 +858,6 @@ namespace SMS_Presentation.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult IncluirProfissao(ProfissaoViewModel vm)
         {
             if ((String)Session["Ativa"] == null)
@@ -931,7 +924,6 @@ namespace SMS_Presentation.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult EditarProfissao(ProfissaoViewModel vm)
         {
             if ((String)Session["Ativa"] == null)
@@ -1013,7 +1005,7 @@ namespace SMS_Presentation.Controllers
             PROFISSAO item = prApp.GetItemById(id);
             objetoAntesPR = (PROFISSAO)Session["Profissao"];
             item.PROF_IN_ATIVO = 1;
-            Int32 volta = prApp.ValidateDelete(item, usuario, idAss);
+            Int32 volta = prApp.ValidateReativar(item, usuario, idAss);
             listaMasterPR = new List<PROFISSAO>();
             Session["ListaProfissao"] = null;
             return RedirectToAction("MontarTelaProfissao");

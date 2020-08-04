@@ -91,6 +91,11 @@ namespace ModelServices.EntitiesServices
             return _usuarioRepository.GetAllUsuariosAdm(idAss);
         }
 
+        public List<USUARIO> GetAllUsuariosAdm()
+        {
+            return _usuarioRepository.GetAllUsuariosAdm();
+        }
+
         public List<UF> GetAllUF()
         {
             return _ufRepository.GetAllItens();
@@ -208,6 +213,12 @@ namespace ModelServices.EntitiesServices
         public List<USUARIO> ExecuteFilter(Int32? perfilId, String cargo, String nome, String login, String email, Int32? idAss)
         {
             List<USUARIO> lista = _usuarioRepository.ExecuteFilter(perfilId, cargo, nome, login, email, idAss);
+            return lista;
+        }
+
+        public List<USUARIO> ExecuteFilter(Int32? perfilId, String cargo, String nome, String login, String email)
+        {
+            List<USUARIO> lista = _usuarioRepository.ExecuteFilter(perfilId, cargo, nome, login, email);
             return lista;
         }
 

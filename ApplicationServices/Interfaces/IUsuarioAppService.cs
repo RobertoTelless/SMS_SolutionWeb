@@ -33,7 +33,9 @@ namespace ApplicationServices.Interfaces
         Int32 GenerateNewPassword(String email);
         List<PERFIL> GetAllPerfis();
         Int32 ExecuteFilter(Int32? perfilId, String cargo, String nome, String login, String email, Int32? idAss, out List<USUARIO> objeto);
+        Int32  ExecuteFilter(Int32? perfilId, String cargo, String nome, String login, String email, out List<USUARIO> objeto);
         List<NOTICIA> GetAllNoticias();
         List<UF> GetAllUF();
+        List<USUARIO> GetAllUsuariosAdm();
     }
 }

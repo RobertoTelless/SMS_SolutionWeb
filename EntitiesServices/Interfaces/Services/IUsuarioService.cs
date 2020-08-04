@@ -35,5 +35,7 @@ namespace ModelServices.Interfaces.EntitiesServices
         List<UF> GetAllUF();
         USUARIO GetAdministrador(Int32? idAss);
         TEMPLATE_EMAIL GetTemplate(String code);
+        List<USUARIO> GetAllUsuariosAdm();
+        List<USUARIO> ExecuteFilter(Int32? perfilId, String cargo, String nome, String login, String email);
     }
 }

@@ -327,7 +327,7 @@ namespace SMS_Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult ExcluirAssinante(ContatoViewModel vm)
+        public ActionResult ExcluirContato(ContatoViewModel vm)
         {
             if ((String)Session["Ativa"] == null)
             {

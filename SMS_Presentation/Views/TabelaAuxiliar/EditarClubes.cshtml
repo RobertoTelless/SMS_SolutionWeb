@@ -45,7 +45,7 @@
                         </a>
                     </div>
                 </div>
-                @using (Html.BeginForm("EditarClube", "TabelaAuxiliar", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
+                @using (Html.BeginForm("EditarClubes", "TabelaAuxiliar", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
                 {
                     <div class="ibox-content">
                     @if (!ViewData.ModelState.IsValid)
@@ -73,7 +73,7 @@
                         </div>
                         <div class="form-group">
                             @Html.ButtonActionSubmit(text: "Confirma Edição", htmlAttributes: new { id = "basictoast" })
-                            @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseClube", controller: "TabelaAuxiliar")
+                            @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseClubes", controller: "TabelaAuxiliar")
                         </div>
                     </div>
                 }

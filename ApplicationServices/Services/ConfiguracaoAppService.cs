@@ -31,11 +31,12 @@ namespace ApplicationServices.Services
             try
             {
                 // Monta Log
+                item.ASSI_CD_ID = 3;
                 LOG log = new LOG
                 {
                     LOG_DT_DATA = DateTime.Now,
                     USUA_CD_ID = usuario.USUA_CD_ID,
-                    ASSI_CD_ID = SessionMocks.IdAssinante,
+                    ASSI_CD_ID = 3,
                     LOG_NM_OPERACAO = "EditCONF",
                     LOG_TX_REGISTRO = Serialization.SerializeJSON<CONFIGURACAO>(item),
                     LOG_TX_REGISTRO_ANTES = Serialization.SerializeJSON<CONFIGURACAO>(itemAntes),

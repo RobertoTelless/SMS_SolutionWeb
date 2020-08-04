@@ -74,8 +74,11 @@ namespace SMS_Presentation.Controllers
             Session["Clubes"] = cluApp.GetAllItens();
             Session["CatContatos"] = ccApp.GetAllItens();
 
+            Session["ListaUsuario"] = null;
             Session["MensUsuario"] = 0;
+            Session["ListaLog"] = null;
             Session["MensLog"] = 0;
+            Session["ListaNoticia"] = null;
             Session["MensNoticia"] = 0;
             Session["MensAcesso"] = 0;
             Session["MensNotificacao"] = 0;
@@ -97,6 +100,10 @@ namespace SMS_Presentation.Controllers
             Session["MensOrigem"] = 0;
             Session["ListaProfissao"] = null;
             Session["MensProfissao"] = 0;
+            Session["ListaUsuarioAdm"] = null;
+            Session["MensUsuarioAdm"] = 0;
+            Session["Configuracao"] = null;
+            Session["MensConfiguracao"] = 0;
 
             USUARIO usu = usuApp.GetItemById((Int32)Session["IdUsuario"]);
             UsuarioViewModel vm = Mapper.Map<USUARIO, UsuarioViewModel>(usu);
