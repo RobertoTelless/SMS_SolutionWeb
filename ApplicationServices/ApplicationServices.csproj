@@ -217,6 +217,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IAppServiceBase.cs" />
+    <Compile Include="Interfaces\IMensagemCampanhaAppService.cs" />
+    <Compile Include="Interfaces\IMensagemGrupoAppService.cs" />
+    <Compile Include="Interfaces\IMensagemContatoAppService.cs" />
+    <Compile Include="Interfaces\IMensagemAppService.cs" />
     <Compile Include="Interfaces\ICampanhaAppService.cs" />
     <Compile Include="Interfaces\ICampanhaGrupoAppService.cs" />
     <Compile Include="Interfaces\ICampanhaContatoAppService.cs" />
@@ -238,6 +242,10 @@
     <Compile Include="Interfaces\IUsuarioAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AppServiceBase.cs" />
+    <Compile Include="Services\MensagemCampanhaAppService.cs" />
+    <Compile Include="Services\MensagemGrupoAppService.cs" />
+    <Compile Include="Services\MensagemContatoAppService.cs" />
+    <Compile Include="Services\MensagemAppService.cs" />
     <Compile Include="Services\CampanhaAppService.cs" />
     <Compile Include="Services\CampanhaGrupoAppService.cs" />
     <Compile Include="Services\CampanhaContatoAppService.cs" />

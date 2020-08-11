@@ -237,4 +237,13 @@
   <data name="M0040" xml:space="preserve">
     <value>Profissão já cadastrada</value>
   </data>
+  <data name="M0041" xml:space="preserve">
+    <value>Já existe uma solicitação de envio de mensagens com este nome</value>
+  </data>
+  <data name="M0042" xml:space="preserve">
+    <value>Nenhum destinatário especificado</value>
+  </data>
+  <data name="M0043" xml:space="preserve">
+    <value>Nenhuma mensagem ou template especificado</value>
+  </data>
 </root>

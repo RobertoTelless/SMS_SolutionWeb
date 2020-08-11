@@ -172,6 +172,65 @@
           <Property Name="LOG_TX_REGISTRO_ANTES" Type="text" />
           <Property Name="LOG_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="MENSAGEM">
+          <Key>
+            <PropertyRef Name="MENS_CD_ID" />
+          </Key>
+          <Property Name="MENS_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
+          <Property Name="USUA_CD_ID" Type="int" Nullable="false" />
+          <Property Name="MENS_DT_DATA" Type="date" Nullable="false" />
+          <Property Name="MENS_NM_NOME" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MENS_IN_ENVIADA" Type="int" Nullable="false" />
+          <Property Name="MENS_DT_ENVIO" Type="date" />
+          <Property Name="MENS_TX_OBSERVACOES" Type="text" />
+          <Property Name="MENS_DT_AGENDA" Type="date" />
+          <Property Name="MENS_TX_TEXTO" Type="text" Nullable="false" />
+          <Property Name="MENS_IN_ATIVO" Type="int" />
+          <Property Name="CONT_CD_ID" Type="int" />
+          <Property Name="GRUP_CD_ID" Type="int" />
+          <Property Name="CAMP_CD_ID" Type="int" />
+          <Property Name="TEMP_CD_ID" Type="int" />
+          <Property Name="MENS_IN_TIPO_SMS" Type="int" />
+        </EntityType>
+        <EntityType Name="MENSAGEM_ANEXO">
+          <Key>
+            <PropertyRef Name="MEAN_CD_ID" />
+          </Key>
+          <Property Name="MEAN_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MENS_CD_ID" Type="int" Nullable="false" />
+          <Property Name="MEAN_NM_TITULO" Type="varchar" MaxLength="50" />
+          <Property Name="MEAN_DT_ANEXO" Type="date" />
+          <Property Name="MEAN_IN_TIPO" Type="int" />
+          <Property Name="MEAN_IN_ATIVO" Type="int" />
+        </EntityType>
+        <EntityType Name="MENSAGEM_CAMPANHA">
+          <Key>
+            <PropertyRef Name="MECA_CD_ID" />
+          </Key>
+          <Property Name="MECA_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MENS_CD_ID" Type="int" Nullable="false" />
+          <Property Name="CAMP_CD_ID" Type="int" Nullable="false" />
+          <Property Name="MECA_IN_ATIVO" Type="int" />
+        </EntityType>
+        <EntityType Name="MENSAGEM_CONTATO">
+          <Key>
+            <PropertyRef Name="MECO_CD_ID" />
+          </Key>
+          <Property Name="MECO_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MENS_CD_ID" Type="int" Nullable="false" />
+          <Property Name="CONT_CD_ID" Type="int" Nullable="false" />
+          <Property Name="MECO_IN_ATIVO" Type="int" />
+        </EntityType>
+        <EntityType Name="MENSAGEM_GRUPO">
+          <Key>
+            <PropertyRef Name="MEGR_CD_ID" />
+          </Key>
+          <Property Name="MEGR_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MENS_CD_ID" Type="int" Nullable="false" />
+          <Property Name="GRUP_CD_ID" Type="int" Nullable="false" />
+          <Property Name="MEGR_IN_ATIVO" Type="int" />
+        </EntityType>
         <EntityType Name="NOTICIA">
           <Key>
             <PropertyRef Name="NOTC_CD_ID" />
@@ -596,6 +655,150 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MENSAGEM_ANEXO_MENSAGEM">
+          <End Role="MENSAGEM" Type="Self.MENSAGEM" Multiplicity="1" />
+          <End Role="MENSAGEM_ANEXO" Type="Self.MENSAGEM_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MENSAGEM">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_ANEXO">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="MENSAGEM" Type="Self.MENSAGEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_CAMPANHA_CAMPANHA">
+          <End Role="CAMPANHA" Type="Self.CAMPANHA" Multiplicity="1" />
+          <End Role="MENSAGEM_CAMPANHA" Type="Self.MENSAGEM_CAMPANHA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAMPANHA">
+              <PropertyRef Name="CAMP_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_CAMPANHA">
+              <PropertyRef Name="CAMP_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_CAMPANHA_MENSAGEM">
+          <End Role="MENSAGEM" Type="Self.MENSAGEM" Multiplicity="1" />
+          <End Role="MENSAGEM_CAMPANHA" Type="Self.MENSAGEM_CAMPANHA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MENSAGEM">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_CAMPANHA">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_CONTATO">
+          <End Role="CONTATO" Type="Self.CONTATO" Multiplicity="0..1" />
+          <End Role="MENSAGEM" Type="Self.MENSAGEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTATO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_CONTATO_CONTATO">
+          <End Role="CONTATO" Type="Self.CONTATO" Multiplicity="1" />
+          <End Role="MENSAGEM_CONTATO" Type="Self.MENSAGEM_CONTATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTATO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_CONTATO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_CONTATO_MENSAGEM">
+          <End Role="MENSAGEM" Type="Self.MENSAGEM" Multiplicity="1" />
+          <End Role="MENSAGEM_CONTATO" Type="Self.MENSAGEM_CONTATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MENSAGEM">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_CONTATO">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_GRUPO">
+          <End Role="GRUPO" Type="Self.GRUPO" Multiplicity="0..1" />
+          <End Role="MENSAGEM" Type="Self.MENSAGEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GRUPO">
+              <PropertyRef Name="GRUP_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM">
+              <PropertyRef Name="GRUP_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_GRUPO_GRUPO">
+          <End Role="GRUPO" Type="Self.GRUPO" Multiplicity="1" />
+          <End Role="MENSAGEM_GRUPO" Type="Self.MENSAGEM_GRUPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GRUPO">
+              <PropertyRef Name="GRUP_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_GRUPO">
+              <PropertyRef Name="GRUP_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_GRUPO_MENSAGEM">
+          <End Role="MENSAGEM" Type="Self.MENSAGEM" Multiplicity="1" />
+          <End Role="MENSAGEM_GRUPO" Type="Self.MENSAGEM_GRUPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MENSAGEM">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_GRUPO">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_TEMPLATE">
+          <End Role="TEMPLATE" Type="Self.TEMPLATE" Multiplicity="0..1" />
+          <End Role="MENSAGEM" Type="Self.MENSAGEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEMPLATE">
+              <PropertyRef Name="TEMP_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM">
+              <PropertyRef Name="TEMP_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="MENSAGEM" Type="Self.MENSAGEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUA_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM">
+              <PropertyRef Name="USUA_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_NOTICIA_ASSINANTE">
           <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
           <End Role="NOTICIA" Type="Self.NOTICIA" Multiplicity="*" />
@@ -754,6 +957,11 @@
           <EntitySet Name="GRUPO" EntityType="Self.GRUPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GRUPO_CONTATO" EntityType="Self.GRUPO_CONTATO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOG" EntityType="Self.LOG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MENSAGEM" EntityType="Self.MENSAGEM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MENSAGEM_ANEXO" EntityType="Self.MENSAGEM_ANEXO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MENSAGEM_CAMPANHA" EntityType="Self.MENSAGEM_CAMPANHA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MENSAGEM_CONTATO" EntityType="Self.MENSAGEM_CONTATO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MENSAGEM_GRUPO" EntityType="Self.MENSAGEM_GRUPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NOTICIA" EntityType="Self.NOTICIA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NOTICIA_COMENTARIO" EntityType="Self.NOTICIA_COMENTARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NOTIFICACAO" EntityType="Self.NOTIFICACAO" Schema="dbo" store:Type="Tables" />
@@ -851,6 +1059,54 @@
             <End Role="USUARIO" EntitySet="USUARIO" />
             <End Role="LOG" EntitySet="LOG" />
           </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_ANEXO_MENSAGEM" Association="Self.FK_MENSAGEM_ANEXO_MENSAGEM">
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+            <End Role="MENSAGEM_ANEXO" EntitySet="MENSAGEM_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_ASSINANTE" Association="Self.FK_MENSAGEM_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_CAMPANHA_CAMPANHA" Association="Self.FK_MENSAGEM_CAMPANHA_CAMPANHA">
+            <End Role="CAMPANHA" EntitySet="CAMPANHA" />
+            <End Role="MENSAGEM_CAMPANHA" EntitySet="MENSAGEM_CAMPANHA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_CAMPANHA_MENSAGEM" Association="Self.FK_MENSAGEM_CAMPANHA_MENSAGEM">
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+            <End Role="MENSAGEM_CAMPANHA" EntitySet="MENSAGEM_CAMPANHA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_CONTATO" Association="Self.FK_MENSAGEM_CONTATO">
+            <End Role="CONTATO" EntitySet="CONTATO" />
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_CONTATO_CONTATO" Association="Self.FK_MENSAGEM_CONTATO_CONTATO">
+            <End Role="CONTATO" EntitySet="CONTATO" />
+            <End Role="MENSAGEM_CONTATO" EntitySet="MENSAGEM_CONTATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_CONTATO_MENSAGEM" Association="Self.FK_MENSAGEM_CONTATO_MENSAGEM">
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+            <End Role="MENSAGEM_CONTATO" EntitySet="MENSAGEM_CONTATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_GRUPO" Association="Self.FK_MENSAGEM_GRUPO">
+            <End Role="GRUPO" EntitySet="GRUPO" />
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_GRUPO_GRUPO" Association="Self.FK_MENSAGEM_GRUPO_GRUPO">
+            <End Role="GRUPO" EntitySet="GRUPO" />
+            <End Role="MENSAGEM_GRUPO" EntitySet="MENSAGEM_GRUPO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_GRUPO_MENSAGEM" Association="Self.FK_MENSAGEM_GRUPO_MENSAGEM">
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+            <End Role="MENSAGEM_GRUPO" EntitySet="MENSAGEM_GRUPO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_TEMPLATE" Association="Self.FK_MENSAGEM_TEMPLATE">
+            <End Role="TEMPLATE" EntitySet="TEMPLATE" />
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_USUARIO" Association="Self.FK_MENSAGEM_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+          </AssociationSet>
           <AssociationSet Name="FK_NOTICIA_ASSINANTE" Association="Self.FK_NOTICIA_ASSINANTE">
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
             <End Role="NOTICIA" EntitySet="NOTICIA" />
@@ -943,6 +1199,7 @@
           <Property Name="ASSI_NM_SENHA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ASSI_TX_OBSERVACOES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="GRUPO" Relationship="SMS_DatabaseModel.FK_GRUPO_ASSINANTE" FromRole="ASSINANTE" ToRole="GRUPO" />
+          <NavigationProperty Name="MENSAGEM" Relationship="SMS_DatabaseModel.FK_MENSAGEM_ASSINANTE" FromRole="ASSINANTE" ToRole="MENSAGEM" />
         </EntityType>
         <EntityType Name="CATEGORIA_NOTIFICACAO">
           <Key>
@@ -1083,6 +1340,7 @@
           <NavigationProperty Name="USUARIO_ANEXO" Relationship="Self.FK_USUARIO_ANEXO_USUARIO" FromRole="USUARIO" ToRole="USUARIO_ANEXO" />
           <NavigationProperty Name="NOTICIA_COMENTARIO" Relationship="SMS_DatabaseModel.FK_NOTICIA_COMENTARIO_USUARIO" FromRole="USUARIO" ToRole="NOTICIA_COMENTARIO" />
           <NavigationProperty Name="NOTIFICACAO" Relationship="SMS_DatabaseModel.FK_NOTIFICACAO_USUARIO" FromRole="USUARIO" ToRole="NOTIFICACAO" />
+          <NavigationProperty Name="MENSAGEM" Relationship="SMS_DatabaseModel.FK_MENSAGEM_USUARIO" FromRole="USUARIO" ToRole="MENSAGEM" />
         </EntityType>
         <EntityType Name="USUARIO_ANEXO">
           <Key>
@@ -1376,6 +1634,59 @@
             <End Role="UF" EntitySet="UF" />
             <End Role="CLUBE" EntitySet="CLUBE" />
           </AssociationSet>
+          <EntitySet Name="MENSAGEM" EntityType="SMS_DatabaseModel.MENSAGEM" />
+          <EntitySet Name="MENSAGEM_CAMPANHA" EntityType="SMS_DatabaseModel.MENSAGEM_CAMPANHA" />
+          <EntitySet Name="MENSAGEM_CONTATO" EntityType="SMS_DatabaseModel.MENSAGEM_CONTATO" />
+          <EntitySet Name="MENSAGEM_GRUPO" EntityType="SMS_DatabaseModel.MENSAGEM_GRUPO" />
+          <AssociationSet Name="FK_MENSAGEM_ASSINANTE" Association="SMS_DatabaseModel.FK_MENSAGEM_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_CAMPANHA_CAMPANHA" Association="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA_CAMPANHA">
+            <End Role="CAMPANHA" EntitySet="CAMPANHA" />
+            <End Role="MENSAGEM_CAMPANHA" EntitySet="MENSAGEM_CAMPANHA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_CONTATO_CONTATO" Association="SMS_DatabaseModel.FK_MENSAGEM_CONTATO_CONTATO">
+            <End Role="CONTATO" EntitySet="CONTATO" />
+            <End Role="MENSAGEM_CONTATO" EntitySet="MENSAGEM_CONTATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_GRUPO_GRUPO" Association="SMS_DatabaseModel.FK_MENSAGEM_GRUPO_GRUPO">
+            <End Role="GRUPO" EntitySet="GRUPO" />
+            <End Role="MENSAGEM_GRUPO" EntitySet="MENSAGEM_GRUPO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_CAMPANHA_MENSAGEM" Association="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA_MENSAGEM">
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+            <End Role="MENSAGEM_CAMPANHA" EntitySet="MENSAGEM_CAMPANHA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_CONTATO_MENSAGEM" Association="SMS_DatabaseModel.FK_MENSAGEM_CONTATO_MENSAGEM">
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+            <End Role="MENSAGEM_CONTATO" EntitySet="MENSAGEM_CONTATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_GRUPO_MENSAGEM" Association="SMS_DatabaseModel.FK_MENSAGEM_GRUPO_MENSAGEM">
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+            <End Role="MENSAGEM_GRUPO" EntitySet="MENSAGEM_GRUPO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_USUARIO" Association="SMS_DatabaseModel.FK_MENSAGEM_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+          </AssociationSet>
+          <EntitySet Name="MENSAGEM_ANEXO" EntityType="SMS_DatabaseModel.MENSAGEM_ANEXO" />
+          <AssociationSet Name="FK_MENSAGEM_CONTATO" Association="SMS_DatabaseModel.FK_MENSAGEM_CONTATO">
+            <End Role="CONTATO" EntitySet="CONTATO" />
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_GRUPO" Association="SMS_DatabaseModel.FK_MENSAGEM_GRUPO">
+            <End Role="GRUPO" EntitySet="GRUPO" />
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_ANEXO_MENSAGEM" Association="SMS_DatabaseModel.FK_MENSAGEM_ANEXO_MENSAGEM">
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+            <End Role="MENSAGEM_ANEXO" EntitySet="MENSAGEM_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_TEMPLATE" Association="SMS_DatabaseModel.FK_MENSAGEM_TEMPLATE">
+            <End Role="TEMPLATE" EntitySet="TEMPLATE" />
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="NOTICIA">
           <Key>
@@ -1489,6 +1800,7 @@
           <Property Name="CONT_CD_ID" Type="Int32" />
           <Property Name="GRUP_CD_ID" Type="Int32" />
           <NavigationProperty Name="TEMPLATE" Relationship="SMS_DatabaseModel.FK_TEMPLATE_CAMPANHA" FromRole="CAMPANHA" ToRole="TEMPLATE" />
+          <NavigationProperty Name="MENSAGEM_CAMPANHA" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA_CAMPANHA" FromRole="CAMPANHA" ToRole="MENSAGEM_CAMPANHA" />
         </EntityType>
         <EntityType Name="CAMPANHA_CONTATO">
           <Key>
@@ -1551,6 +1863,8 @@
           <Property Name="CONT_NR_CELULAR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CONT_IN_ATIVO" Type="Int32" />
           <NavigationProperty Name="GRUPO_CONTATO" Relationship="SMS_DatabaseModel.FK_GRUPO_CONTATO_CONTATO" FromRole="CONTATO" ToRole="GRUPO_CONTATO" />
+          <NavigationProperty Name="MENSAGEM_CONTATO" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CONTATO_CONTATO" FromRole="CONTATO" ToRole="MENSAGEM_CONTATO" />
+          <NavigationProperty Name="MENSAGEM" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CONTATO" FromRole="CONTATO" ToRole="MENSAGEM" />
         </EntityType>
         <EntityType Name="ORIGEM">
           <Key>
@@ -1716,6 +2030,7 @@
           <Property Name="TEMP_SG_SIGLA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="CAMP_CD_ID" Type="Int32" />
           <NavigationProperty Name="CAMPANHA" Relationship="SMS_DatabaseModel.FK_TEMPLATE_CAMPANHA" FromRole="TEMPLATE" ToRole="CAMPANHA" />
+          <NavigationProperty Name="MENSAGEM" Relationship="SMS_DatabaseModel.FK_MENSAGEM_TEMPLATE" FromRole="TEMPLATE" ToRole="MENSAGEM" />
         </EntityType>
         <Association Name="FK_TEMPLATE_ASSINANTE">
           <End Type="SMS_DatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
@@ -1758,6 +2073,8 @@
           <Property Name="CONT_CD_ID" Type="Int32" />
           <Property Name="GRUP_DS_DESCRICAO" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CAMPANHA_GRUPO" Relationship="SMS_DatabaseModel.FK_CAMPANHA_GRUPO_GRUPO" FromRole="GRUPO" ToRole="CAMPANHA_GRUPO" />
+          <NavigationProperty Name="MENSAGEM_GRUPO" Relationship="SMS_DatabaseModel.FK_MENSAGEM_GRUPO_GRUPO" FromRole="GRUPO" ToRole="MENSAGEM_GRUPO" />
+          <NavigationProperty Name="MENSAGEM" Relationship="SMS_DatabaseModel.FK_MENSAGEM_GRUPO" FromRole="GRUPO" ToRole="MENSAGEM" />
         </EntityType>
         <EntityType Name="GRUPO_CONTATO">
           <Key>
@@ -1862,6 +2179,225 @@
             </Principal>
             <Dependent Role="CLUBE">
               <PropertyRef Name="UF_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MENSAGEM">
+          <Key>
+            <PropertyRef Name="MENS_CD_ID" />
+          </Key>
+          <Property Name="MENS_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ASSI_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="USUA_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="MENS_DT_DATA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MENS_NM_NOME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MENS_IN_ENVIADA" Type="Int32" Nullable="false" />
+          <Property Name="MENS_DT_ENVIO" Type="DateTime" Precision="0" />
+          <Property Name="MENS_TX_OBSERVACOES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MENS_DT_AGENDA" Type="DateTime" Precision="0" />
+          <Property Name="MENS_TX_TEXTO" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SMS_DatabaseModel.FK_MENSAGEM_ASSINANTE" FromRole="MENSAGEM" ToRole="ASSINANTE" />
+          <NavigationProperty Name="MENSAGEM_CAMPANHA" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA_MENSAGEM" FromRole="MENSAGEM" ToRole="MENSAGEM_CAMPANHA" />
+          <NavigationProperty Name="MENSAGEM_CONTATO" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CONTATO_MENSAGEM" FromRole="MENSAGEM" ToRole="MENSAGEM_CONTATO" />
+          <NavigationProperty Name="MENSAGEM_GRUPO" Relationship="SMS_DatabaseModel.FK_MENSAGEM_GRUPO_MENSAGEM" FromRole="MENSAGEM" ToRole="MENSAGEM_GRUPO" />
+          <NavigationProperty Name="USUARIO" Relationship="SMS_DatabaseModel.FK_MENSAGEM_USUARIO" FromRole="MENSAGEM" ToRole="USUARIO" />
+          <Property Name="MENS_IN_ATIVO" Type="Int32" />
+          <Property Name="CONT_CD_ID" Type="Int32" />
+          <Property Name="GRUP_CD_ID" Type="Int32" />
+          <Property Name="CAMP_CD_ID" Type="Int32" />
+          <Property Name="TEMP_CD_ID" Type="Int32" />
+          <NavigationProperty Name="CONTATO" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CONTATO" FromRole="MENSAGEM" ToRole="CONTATO" />
+          <NavigationProperty Name="GRUPO" Relationship="SMS_DatabaseModel.FK_MENSAGEM_GRUPO" FromRole="MENSAGEM" ToRole="GRUPO" />
+          <NavigationProperty Name="MENSAGEM_ANEXO" Relationship="SMS_DatabaseModel.FK_MENSAGEM_ANEXO_MENSAGEM" FromRole="MENSAGEM" ToRole="MENSAGEM_ANEXO" />
+          <NavigationProperty Name="TEMPLATE" Relationship="SMS_DatabaseModel.FK_MENSAGEM_TEMPLATE" FromRole="MENSAGEM" ToRole="TEMPLATE" />
+          <Property Name="MENS_IN_TIPO_SMS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MENSAGEM_CAMPANHA">
+          <Key>
+            <PropertyRef Name="MECA_CD_ID" />
+          </Key>
+          <Property Name="MECA_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MENS_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="CAMP_CD_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CAMPANHA" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA_CAMPANHA" FromRole="MENSAGEM_CAMPANHA" ToRole="CAMPANHA" />
+          <NavigationProperty Name="MENSAGEM" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA_MENSAGEM" FromRole="MENSAGEM_CAMPANHA" ToRole="MENSAGEM" />
+          <Property Name="MECA_IN_ATIVO" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MENSAGEM_CONTATO">
+          <Key>
+            <PropertyRef Name="MECO_CD_ID" />
+          </Key>
+          <Property Name="MECO_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MENS_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="CONT_CD_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CONTATO" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CONTATO_CONTATO" FromRole="MENSAGEM_CONTATO" ToRole="CONTATO" />
+          <NavigationProperty Name="MENSAGEM" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CONTATO_MENSAGEM" FromRole="MENSAGEM_CONTATO" ToRole="MENSAGEM" />
+          <Property Name="MECO_IN_ATIVO" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MENSAGEM_GRUPO">
+          <Key>
+            <PropertyRef Name="MEGR_CD_ID" />
+          </Key>
+          <Property Name="MEGR_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MENS_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="GRUP_CD_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GRUPO" Relationship="SMS_DatabaseModel.FK_MENSAGEM_GRUPO_GRUPO" FromRole="MENSAGEM_GRUPO" ToRole="GRUPO" />
+          <NavigationProperty Name="MENSAGEM" Relationship="SMS_DatabaseModel.FK_MENSAGEM_GRUPO_MENSAGEM" FromRole="MENSAGEM_GRUPO" ToRole="MENSAGEM" />
+          <Property Name="MEGR_IN_ATIVO" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_MENSAGEM_ASSINANTE">
+          <End Type="SMS_DatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SMS_DatabaseModel.MENSAGEM" Role="MENSAGEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_CAMPANHA_CAMPANHA">
+          <End Type="SMS_DatabaseModel.CAMPANHA" Role="CAMPANHA" Multiplicity="1" />
+          <End Type="SMS_DatabaseModel.MENSAGEM_CAMPANHA" Role="MENSAGEM_CAMPANHA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAMPANHA">
+              <PropertyRef Name="CAMP_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_CAMPANHA">
+              <PropertyRef Name="CAMP_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_CONTATO_CONTATO">
+          <End Type="SMS_DatabaseModel.CONTATO" Role="CONTATO" Multiplicity="1" />
+          <End Type="SMS_DatabaseModel.MENSAGEM_CONTATO" Role="MENSAGEM_CONTATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTATO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_CONTATO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_GRUPO_GRUPO">
+          <End Type="SMS_DatabaseModel.GRUPO" Role="GRUPO" Multiplicity="1" />
+          <End Type="SMS_DatabaseModel.MENSAGEM_GRUPO" Role="MENSAGEM_GRUPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GRUPO">
+              <PropertyRef Name="GRUP_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_GRUPO">
+              <PropertyRef Name="GRUP_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_CAMPANHA_MENSAGEM">
+          <End Type="SMS_DatabaseModel.MENSAGEM" Role="MENSAGEM" Multiplicity="1" />
+          <End Type="SMS_DatabaseModel.MENSAGEM_CAMPANHA" Role="MENSAGEM_CAMPANHA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MENSAGEM">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_CAMPANHA">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_CONTATO_MENSAGEM">
+          <End Type="SMS_DatabaseModel.MENSAGEM" Role="MENSAGEM" Multiplicity="1" />
+          <End Type="SMS_DatabaseModel.MENSAGEM_CONTATO" Role="MENSAGEM_CONTATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MENSAGEM">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_CONTATO">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_GRUPO_MENSAGEM">
+          <End Type="SMS_DatabaseModel.MENSAGEM" Role="MENSAGEM" Multiplicity="1" />
+          <End Type="SMS_DatabaseModel.MENSAGEM_GRUPO" Role="MENSAGEM_GRUPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MENSAGEM">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_GRUPO">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_USUARIO">
+          <End Type="SMS_DatabaseModel.USUARIO" Role="USUARIO" Multiplicity="1" />
+          <End Type="SMS_DatabaseModel.MENSAGEM" Role="MENSAGEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUA_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM">
+              <PropertyRef Name="USUA_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MENSAGEM_ANEXO">
+          <Key>
+            <PropertyRef Name="MEAN_CD_ID" />
+          </Key>
+          <Property Name="MEAN_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MENS_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="MEAN_NM_TITULO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MEAN_DT_ANEXO" Type="DateTime" Precision="0" />
+          <Property Name="MEAN_IN_TIPO" Type="Int32" />
+          <Property Name="MEAN_IN_ATIVO" Type="Int32" />
+          <NavigationProperty Name="MENSAGEM" Relationship="SMS_DatabaseModel.FK_MENSAGEM_ANEXO_MENSAGEM" FromRole="MENSAGEM_ANEXO" ToRole="MENSAGEM" />
+        </EntityType>
+        <Association Name="FK_MENSAGEM_CONTATO">
+          <End Type="SMS_DatabaseModel.CONTATO" Role="CONTATO" Multiplicity="0..1" />
+          <End Type="SMS_DatabaseModel.MENSAGEM" Role="MENSAGEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTATO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_GRUPO">
+          <End Type="SMS_DatabaseModel.GRUPO" Role="GRUPO" Multiplicity="0..1" />
+          <End Type="SMS_DatabaseModel.MENSAGEM" Role="MENSAGEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GRUPO">
+              <PropertyRef Name="GRUP_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM">
+              <PropertyRef Name="GRUP_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_ANEXO_MENSAGEM">
+          <End Type="SMS_DatabaseModel.MENSAGEM" Role="MENSAGEM" Multiplicity="1" />
+          <End Type="SMS_DatabaseModel.MENSAGEM_ANEXO" Role="MENSAGEM_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MENSAGEM">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM_ANEXO">
+              <PropertyRef Name="MENS_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_TEMPLATE">
+          <End Type="SMS_DatabaseModel.TEMPLATE" Role="TEMPLATE" Multiplicity="0..1" />
+          <End Type="SMS_DatabaseModel.MENSAGEM" Role="MENSAGEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEMPLATE">
+              <PropertyRef Name="TEMP_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM">
+              <PropertyRef Name="TEMP_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2233,6 +2769,70 @@
                 <ScalarProperty Name="GRUP_CD_ID" ColumnName="GRUP_CD_ID" />
                 <ScalarProperty Name="CAMP_CD_ID" ColumnName="CAMP_CD_ID" />
                 <ScalarProperty Name="CAGR_CD_ID" ColumnName="CAGR_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MENSAGEM">
+            <EntityTypeMapping TypeName="SMS_DatabaseModel.MENSAGEM">
+              <MappingFragment StoreEntitySet="MENSAGEM">
+                <ScalarProperty Name="MENS_IN_TIPO_SMS" ColumnName="MENS_IN_TIPO_SMS" />
+                <ScalarProperty Name="TEMP_CD_ID" ColumnName="TEMP_CD_ID" />
+                <ScalarProperty Name="CAMP_CD_ID" ColumnName="CAMP_CD_ID" />
+                <ScalarProperty Name="GRUP_CD_ID" ColumnName="GRUP_CD_ID" />
+                <ScalarProperty Name="CONT_CD_ID" ColumnName="CONT_CD_ID" />
+                <ScalarProperty Name="MENS_IN_ATIVO" ColumnName="MENS_IN_ATIVO" />
+                <ScalarProperty Name="MENS_TX_TEXTO" ColumnName="MENS_TX_TEXTO" />
+                <ScalarProperty Name="MENS_DT_AGENDA" ColumnName="MENS_DT_AGENDA" />
+                <ScalarProperty Name="MENS_TX_OBSERVACOES" ColumnName="MENS_TX_OBSERVACOES" />
+                <ScalarProperty Name="MENS_DT_ENVIO" ColumnName="MENS_DT_ENVIO" />
+                <ScalarProperty Name="MENS_IN_ENVIADA" ColumnName="MENS_IN_ENVIADA" />
+                <ScalarProperty Name="MENS_NM_NOME" ColumnName="MENS_NM_NOME" />
+                <ScalarProperty Name="MENS_DT_DATA" ColumnName="MENS_DT_DATA" />
+                <ScalarProperty Name="USUA_CD_ID" ColumnName="USUA_CD_ID" />
+                <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
+                <ScalarProperty Name="MENS_CD_ID" ColumnName="MENS_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MENSAGEM_CAMPANHA">
+            <EntityTypeMapping TypeName="SMS_DatabaseModel.MENSAGEM_CAMPANHA">
+              <MappingFragment StoreEntitySet="MENSAGEM_CAMPANHA">
+                <ScalarProperty Name="MECA_IN_ATIVO" ColumnName="MECA_IN_ATIVO" />
+                <ScalarProperty Name="CAMP_CD_ID" ColumnName="CAMP_CD_ID" />
+                <ScalarProperty Name="MENS_CD_ID" ColumnName="MENS_CD_ID" />
+                <ScalarProperty Name="MECA_CD_ID" ColumnName="MECA_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MENSAGEM_CONTATO">
+            <EntityTypeMapping TypeName="SMS_DatabaseModel.MENSAGEM_CONTATO">
+              <MappingFragment StoreEntitySet="MENSAGEM_CONTATO">
+                <ScalarProperty Name="MECO_IN_ATIVO" ColumnName="MECO_IN_ATIVO" />
+                <ScalarProperty Name="CONT_CD_ID" ColumnName="CONT_CD_ID" />
+                <ScalarProperty Name="MENS_CD_ID" ColumnName="MENS_CD_ID" />
+                <ScalarProperty Name="MECO_CD_ID" ColumnName="MECO_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MENSAGEM_GRUPO">
+            <EntityTypeMapping TypeName="SMS_DatabaseModel.MENSAGEM_GRUPO">
+              <MappingFragment StoreEntitySet="MENSAGEM_GRUPO">
+                <ScalarProperty Name="MEGR_IN_ATIVO" ColumnName="MEGR_IN_ATIVO" />
+                <ScalarProperty Name="GRUP_CD_ID" ColumnName="GRUP_CD_ID" />
+                <ScalarProperty Name="MENS_CD_ID" ColumnName="MENS_CD_ID" />
+                <ScalarProperty Name="MEGR_CD_ID" ColumnName="MEGR_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MENSAGEM_ANEXO">
+            <EntityTypeMapping TypeName="SMS_DatabaseModel.MENSAGEM_ANEXO">
+              <MappingFragment StoreEntitySet="MENSAGEM_ANEXO">
+                <ScalarProperty Name="MEAN_IN_ATIVO" ColumnName="MEAN_IN_ATIVO" />
+                <ScalarProperty Name="MEAN_IN_TIPO" ColumnName="MEAN_IN_TIPO" />
+                <ScalarProperty Name="MEAN_DT_ANEXO" ColumnName="MEAN_DT_ANEXO" />
+                <ScalarProperty Name="MEAN_NM_TITULO" ColumnName="MEAN_NM_TITULO" />
+                <ScalarProperty Name="MENS_CD_ID" ColumnName="MENS_CD_ID" />
+                <ScalarProperty Name="MEAN_CD_ID" ColumnName="MEAN_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

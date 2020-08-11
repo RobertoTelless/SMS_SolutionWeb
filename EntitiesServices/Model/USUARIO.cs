@@ -21,6 +21,7 @@ namespace EntitiesServices.Model
             this.USUARIO_ANEXO = new HashSet<USUARIO_ANEXO>();
             this.NOTICIA_COMENTARIO = new HashSet<NOTICIA_COMENTARIO>();
             this.NOTIFICACAO = new HashSet<NOTIFICACAO>();
+            this.MENSAGEM = new HashSet<MENSAGEM>();
         }
     
         public int USUA_CD_ID { get; set; }
@@ -59,5 +60,7 @@ namespace EntitiesServices.Model
         public virtual ICollection<NOTICIA_COMENTARIO> NOTICIA_COMENTARIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NOTIFICACAO> NOTIFICACAO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MENSAGEM> MENSAGEM { get; set; }
     }
 }

@@ -218,10 +218,15 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AssinanteRepository.cs" />
+    <Compile Include="Repositories\MensagemCampanhaRepository.cs" />
+    <Compile Include="Repositories\MensagemGrupoRepository.cs" />
+    <Compile Include="Repositories\MensagemContatoRepository.cs" />
     <Compile Include="Repositories\CampanhaGrupoRepository.cs" />
     <Compile Include="Repositories\CampanhaContatoRepository.cs" />
+    <Compile Include="Repositories\MensagemRepository.cs" />
     <Compile Include="Repositories\GrupoContatoRepository.cs" />
     <Compile Include="Repositories\GrupoRepository.cs" />
+    <Compile Include="Repositories\MensagemAnexoRepository.cs" />
     <Compile Include="Repositories\ProfissaoRepository.cs" />
     <Compile Include="Repositories\OrigemRepository.cs" />
     <Compile Include="Repositories\ContatoRepository.cs" />

@@ -14,6 +14,12 @@ namespace EntitiesServices.Model
     
     public partial class TEMPLATE
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TEMPLATE()
+        {
+            this.MENSAGEM = new HashSet<MENSAGEM>();
+        }
+    
         public int TEMP_CD_ID { get; set; }
         public int ASSI_CD_ID { get; set; }
         public string TEMP_NM_NOME { get; set; }
@@ -25,5 +31,7 @@ namespace EntitiesServices.Model
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CAMPANHA CAMPANHA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MENSAGEM> MENSAGEM { get; set; }
     }
 }

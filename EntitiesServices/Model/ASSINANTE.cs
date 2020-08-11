@@ -28,6 +28,7 @@ namespace EntitiesServices.Model
             this.CONTATO = new HashSet<CONTATO>();
             this.TEMPLATE = new HashSet<TEMPLATE>();
             this.GRUPO = new HashSet<GRUPO>();
+            this.MENSAGEM = new HashSet<MENSAGEM>();
         }
     
         public int ASSI_CD_ID { get; set; }
@@ -77,5 +78,7 @@ namespace EntitiesServices.Model
         public virtual ICollection<TEMPLATE> TEMPLATE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GRUPO> GRUPO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MENSAGEM> MENSAGEM { get; set; }
     }
 }

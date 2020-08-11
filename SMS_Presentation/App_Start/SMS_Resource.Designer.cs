@@ -419,5 +419,32 @@ namespace SMS_Presentation.App_Start {
                 return ResourceManager.GetString("M0040", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Já existe uma solicitação de envio de mensagens com este nome.
+        /// </summary>
+        internal static string M0041 {
+            get {
+                return ResourceManager.GetString("M0041", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Nenhum destinatário especificado.
+        /// </summary>
+        internal static string M0042 {
+            get {
+                return ResourceManager.GetString("M0042", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Nenhuma mensagem ou template especificado.
+        /// </summary>
+        internal static string M0043 {
+            get {
+                return ResourceManager.GetString("M0043", resourceCulture);
+            }
+        }
     }
 }

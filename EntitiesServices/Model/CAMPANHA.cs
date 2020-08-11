@@ -20,6 +20,7 @@ namespace EntitiesServices.Model
             this.CAMPANHA_CONTATO = new HashSet<CAMPANHA_CONTATO>();
             this.CAMPANHA_GRUPO = new HashSet<CAMPANHA_GRUPO>();
             this.TEMPLATE = new HashSet<TEMPLATE>();
+            this.MENSAGEM_CAMPANHA = new HashSet<MENSAGEM_CAMPANHA>();
         }
     
         public int CAMP_CD_ID { get; set; }
@@ -39,5 +40,7 @@ namespace EntitiesServices.Model
         public virtual ICollection<CAMPANHA_GRUPO> CAMPANHA_GRUPO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TEMPLATE> TEMPLATE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MENSAGEM_CAMPANHA> MENSAGEM_CAMPANHA { get; set; }
     }
 }

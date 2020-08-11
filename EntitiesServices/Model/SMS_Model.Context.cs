@@ -51,5 +51,10 @@ namespace EntitiesServices.Model
         public virtual DbSet<GRUPO> GRUPO { get; set; }
         public virtual DbSet<GRUPO_CONTATO> GRUPO_CONTATO { get; set; }
         public virtual DbSet<CAMPANHA_GRUPO> CAMPANHA_GRUPO { get; set; }
+        public virtual DbSet<MENSAGEM> MENSAGEM { get; set; }
+        public virtual DbSet<MENSAGEM_CAMPANHA> MENSAGEM_CAMPANHA { get; set; }
+        public virtual DbSet<MENSAGEM_CONTATO> MENSAGEM_CONTATO { get; set; }
+        public virtual DbSet<MENSAGEM_GRUPO> MENSAGEM_GRUPO { get; set; }
+        public virtual DbSet<MENSAGEM_ANEXO> MENSAGEM_ANEXO { get; set; }
     }
 }

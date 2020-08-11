@@ -64,6 +64,23 @@
         <AssociationConnector Association="SMS_DatabaseModel.FK_CAMPANHA_GRUPO_GRUPO" />
         <AssociationConnector Association="SMS_DatabaseModel.FK_TEMPLATE_CAMPANHA" />
         <AssociationConnector Association="SMS_DatabaseModel.FK_CLUBE_UF" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.MENSAGEM" Width="1.5" PointX="10.25" PointY="10.5" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.MENSAGEM_CAMPANHA" Width="1.5" PointX="12.5" PointY="19.875" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.MENSAGEM_CONTATO" Width="1.5" PointX="12.5" PointY="8" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.MENSAGEM_GRUPO" Width="1.5" PointX="12.5" PointY="25" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_ASSINANTE" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA_CAMPANHA" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_CONTATO_CONTATO" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_GRUPO_GRUPO" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA_MENSAGEM" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_CONTATO_MENSAGEM" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_GRUPO_MENSAGEM" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_USUARIO" />
+        <EntityTypeShape EntityType="SMS_DatabaseModel.MENSAGEM_ANEXO" Width="1.5" PointX="12.5" PointY="12.125" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_CONTATO" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_GRUPO" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_ANEXO_MENSAGEM" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_TEMPLATE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

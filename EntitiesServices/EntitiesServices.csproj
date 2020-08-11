@@ -223,8 +223,12 @@
     <Compile Include="Attributes\CustomValidationCNPJAttribute .cs" />
     <Compile Include="Attributes\CustomValidationCPFAttribute.cs" />
     <Compile Include="Attributes\DataAnteriorAttribute.cs" />
+    <Compile Include="EntitiesServices\MensagemCampanhaService.cs" />
+    <Compile Include="EntitiesServices\MensagemGrupoService.cs" />
+    <Compile Include="EntitiesServices\MensagemContatoService.cs" />
     <Compile Include="EntitiesServices\CampanhaGrupoService.cs" />
     <Compile Include="EntitiesServices\CampanhaContatoService.cs" />
+    <Compile Include="EntitiesServices\MensagemService.cs" />
     <Compile Include="EntitiesServices\GrupoContatoService.cs" />
     <Compile Include="EntitiesServices\GrupoService.cs" />
     <Compile Include="EntitiesServices\ProfissaoService.cs" />
@@ -244,10 +248,15 @@
     <Compile Include="EntitiesServices\TemplateService.cs" />
     <Compile Include="EntitiesServices\UsuarioService.cs" />
     <Compile Include="Interfaces\Repositories\IAssinanteRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IMensagemCampanhaRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IMensagemGrupoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IMensagemContatoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICampanhaGrupoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICampanhaContatoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IMensagemRepository.cs" />
     <Compile Include="Interfaces\Repositories\IGrupoContatoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IGrupoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IMensagemAnexoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IProfissaoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IOrigemRepository.cs" />
     <Compile Include="Interfaces\Repositories\IContatoRepository.cs" />
@@ -269,8 +278,12 @@
     <Compile Include="Interfaces\Repositories\IUFRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUsuarioAnexoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUsuarioRepository.cs" />
+    <Compile Include="Interfaces\Services\IMensagemCampanhaService.cs" />
+    <Compile Include="Interfaces\Services\IMensagemGrupoService.cs" />
+    <Compile Include="Interfaces\Services\IMensagemContatoService.cs" />
     <Compile Include="Interfaces\Services\ICampanhaGrupoService.cs" />
     <Compile Include="Interfaces\Services\ICampanhaContatoService.cs" />
+    <Compile Include="Interfaces\Services\IMensagemService.cs" />
     <Compile Include="Interfaces\Services\IGrupoContatoService.cs" />
     <Compile Include="Interfaces\Services\IGrupoService.cs" />
     <Compile Include="Interfaces\Services\IProfissaoService.cs" />
@@ -326,6 +339,21 @@
       <DependentUpon>SMS_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\LOG.cs">
+      <DependentUpon>SMS_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MENSAGEM.cs">
+      <DependentUpon>SMS_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MENSAGEM_ANEXO.cs">
+      <DependentUpon>SMS_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MENSAGEM_CAMPANHA.cs">
+      <DependentUpon>SMS_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MENSAGEM_CONTATO.cs">
+      <DependentUpon>SMS_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MENSAGEM_GRUPO.cs">
       <DependentUpon>SMS_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\NOTICIA.cs">

@@ -89,6 +89,10 @@ namespace Presentation.Start
             kernel.Bind<ICampanhaAppService>().To<CampanhaAppService>();
             kernel.Bind<ICampanhaContatoAppService>().To<CampanhaContatoAppService>();
             kernel.Bind<ICampanhaGrupoAppService>().To<CampanhaGrupoAppService>();
+            kernel.Bind<IMensagemAppService>().To<MensagemAppService>();
+            kernel.Bind<IMensagemCampanhaAppService>().To<MensagemCampanhaAppService>();
+            kernel.Bind<IMensagemContatoAppService>().To<MensagemContatoAppService>();
+            kernel.Bind<IMensagemGrupoAppService>().To<MensagemGrupoAppService>();
 
             kernel.Bind(typeof(IServiceBase<>)).To(typeof(ServiceBase<>));
             kernel.Bind<IUsuarioService>().To<UsuarioService>();
@@ -110,6 +114,10 @@ namespace Presentation.Start
             kernel.Bind<ICampanhaService>().To<CampanhaService>();
             kernel.Bind<ICampanhaContatoService>().To<CampanhaContatoService>();
             kernel.Bind<ICampanhaGrupoService>().To<CampanhaGrupoService>();
+            kernel.Bind<IMensagemService>().To<MensagemService>();
+            kernel.Bind<IMensagemCampanhaService>().To<MensagemCampanhaService>();
+            kernel.Bind<IMensagemContatoService>().To<MensagemContatoService>();
+            kernel.Bind<IMensagemGrupoService>().To<MensagemGrupoService>();
 
             kernel.Bind(typeof(IRepositoryBase<>)).To(typeof(RepositoryBase<>));
             kernel.Bind<IConfiguracaoRepository>().To<ConfiguracaoRepository>();
@@ -137,6 +145,10 @@ namespace Presentation.Start
             kernel.Bind<ICampanhaRepository>().To<CampanhaRepository>();
             kernel.Bind<ICampanhaContatoRepository>().To<CampanhaContatoRepository>();
             kernel.Bind<ICampanhaGrupoRepository>().To<CampanhaGrupoRepository>();
+            kernel.Bind<IMensagemRepository>().To<MensagemRepository>();
+            kernel.Bind<IMensagemCampanhaRepository>().To<MensagemCampanhaRepository>();
+            kernel.Bind<IMensagemContatoRepository>().To<MensagemContatoRepository>();
+            kernel.Bind<IMensagemGrupoRepository>().To<MensagemGrupoRepository>();
 
         }
     }
