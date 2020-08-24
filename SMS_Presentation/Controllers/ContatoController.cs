@@ -412,5 +412,96 @@ namespace SMS_Presentation.Controllers
             Int32 volta = (Int32)Session["IdVolta"];
             return RedirectToAction("EditarContato", new { id = volta });
         }
+
+        [HttpGet]
+        public ActionResult MontarTelaAniversariantes()
+        {
+            // Verifica se tem usuario logado
+            USUARIO usuario = new USUARIO();
+            if ((String)Session["Ativa"] == null)
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+            usuario = (USUARIO)Session["UserCredentials"];
+            Int32 idAss = (Int32)Session["IdAssinante"];
+
+            // Carrega listas
+            if ((List<CONTATO>)Session["ListaContato"] == null)
+            {
+                List<CONTATO> lista = baseApp.GetAllItens(idAss);
+                lista = lista.Where(p => p.CONT_DT_NASCIMENTO == DateTime.Today.Date).ToList();
+                listaMasterAss = lista;
+                Session["ListaContato"] = listaMasterAss;
+            }
+            ViewBag.Listas = (List<CONTATO>)Session["ListaContato"];
+            ViewBag.Title = "Contatos";
+
+            ViewBag.Origens = new SelectList((List<ORIGEM>)Session["Origens"], "ORIG_CD_ID", "ORIG_NM_NOME");
+            ViewBag.Profissoes = new SelectList((List<PROFISSAO>)Session["Profissoes"], "PROF_CD_ID", "PROF_NM_NOME");
+            ViewBag.Clubes = new SelectList((List<CLUBE>)Session["Clubes"], "CLUB_CD_ID", "CLUB_NM_NOME");
+            ViewBag.UFs = new SelectList((List<UF>)Session["UFs"], "UF_CD_ID", "UF_NM_NOME");
+            ViewBag.Cats = new SelectList((List<CATEGORIA_CONTATO>)Session["CatContatos"], "CACO_CD_ID", "CACO_NM_NOME");
+
+            // Indicadores
+            ViewBag.Contatos = listaMasterAss.Count;
+
+            // Mensagem
+            if ((Int32)Session["MensContato"] == 1)
+            {
+                ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0016", CultureInfo.CurrentCulture));
+            }
+
+            // Abre view
+            Session["MensContato"] = 0;
+            objetoAss = new CONTATO();
+            objetoAss.CONT_DT_NASCIMENTO = DateTime.Today.Date;
+            return View(objetoAss);
+        }
+
+        public ActionResult RetirarFiltroAniversariante()
+        {
+            if ((String)Session["Ativa"] == null)
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+            Session["ListaContato"] = null;
+            return RedirectToAction("MontarTelaAniversariantes");
+        }
+
+        [HttpPost]
+        public ActionResult FiltrarAniversariante(CONTATO item)
+        {
+            try
+            {
+                // Executa a operação
+                if ((String)Session["Ativa"] == null)
+                {
+                    return RedirectToAction("Login", "ControleAcesso");
+                }
+                List<CONTATO> listaObj = new List<CONTATO>();
+                Int32 idAss = (Int32)Session["IdAssinante"];
+                Int32 volta = baseApp.ExecuteFilter(item.CONT_NM_NOME, item.ORIG_CD_ID, item.CACO_CD_ID, item.CONT_NM_CARGO, item.PROF_CD_ID, item.CACO_NM_CIDADE, item.UF_CD_ID, item.CONT_DT_NASCIMENTO, item.CLUB_CD_ID, idAss, out listaObj);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    Session["MensContato"] = 1;
+                    ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0016", CultureInfo.CurrentCulture));
+                    return RedirectToAction("MontarTelaAniversariantes");
+                }
+
+                // Sucesso
+                Session["MensContato"] = 0;
+                listaMasterAss = listaObj;
+                Session["ListaContato"] = listaObj;
+                return RedirectToAction("MontarTelaAniversariantes");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction("MontarTelaAniversariantes");
+            }
+        }
+
     }
 }

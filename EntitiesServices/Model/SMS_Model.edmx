@@ -192,6 +192,8 @@
           <Property Name="CAMP_CD_ID" Type="int" />
           <Property Name="TEMP_CD_ID" Type="int" />
           <Property Name="MENS_IN_TIPO_SMS" Type="int" />
+          <Property Name="MENS_TX_RETORNOS" Type="text" />
+          <Property Name="MENS_IN_OPERACAO" Type="int" />
         </EntityType>
         <EntityType Name="MENSAGEM_ANEXO">
           <Key>
@@ -679,6 +681,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MENSAGEM_CAMPANHA">
+          <End Role="CAMPANHA" Type="Self.CAMPANHA" Multiplicity="0..1" />
+          <End Role="MENSAGEM" Type="Self.MENSAGEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAMPANHA">
+              <PropertyRef Name="CAMP_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM">
+              <PropertyRef Name="CAMP_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MENSAGEM_CAMPANHA_CAMPANHA">
           <End Role="CAMPANHA" Type="Self.CAMPANHA" Multiplicity="1" />
           <End Role="MENSAGEM_CAMPANHA" Type="Self.MENSAGEM_CAMPANHA" Multiplicity="*" />
@@ -1065,6 +1079,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_MENSAGEM_ASSINANTE" Association="Self.FK_MENSAGEM_ASSINANTE">
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_CAMPANHA" Association="Self.FK_MENSAGEM_CAMPANHA">
+            <End Role="CAMPANHA" EntitySet="CAMPANHA" />
             <End Role="MENSAGEM" EntitySet="MENSAGEM" />
           </AssociationSet>
           <AssociationSet Name="FK_MENSAGEM_CAMPANHA_CAMPANHA" Association="Self.FK_MENSAGEM_CAMPANHA_CAMPANHA">
@@ -1687,6 +1705,10 @@
             <End Role="TEMPLATE" EntitySet="TEMPLATE" />
             <End Role="MENSAGEM" EntitySet="MENSAGEM" />
           </AssociationSet>
+          <AssociationSet Name="FK_MENSAGEM_CAMPANHA" Association="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA">
+            <End Role="CAMPANHA" EntitySet="CAMPANHA" />
+            <End Role="MENSAGEM" EntitySet="MENSAGEM" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="NOTICIA">
           <Key>
@@ -1801,6 +1823,7 @@
           <Property Name="GRUP_CD_ID" Type="Int32" />
           <NavigationProperty Name="TEMPLATE" Relationship="SMS_DatabaseModel.FK_TEMPLATE_CAMPANHA" FromRole="CAMPANHA" ToRole="TEMPLATE" />
           <NavigationProperty Name="MENSAGEM_CAMPANHA" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA_CAMPANHA" FromRole="CAMPANHA" ToRole="MENSAGEM_CAMPANHA" />
+          <NavigationProperty Name="MENSAGEM" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA" FromRole="CAMPANHA" ToRole="MENSAGEM" />
         </EntityType>
         <EntityType Name="CAMPANHA_CONTATO">
           <Key>
@@ -2211,6 +2234,9 @@
           <NavigationProperty Name="MENSAGEM_ANEXO" Relationship="SMS_DatabaseModel.FK_MENSAGEM_ANEXO_MENSAGEM" FromRole="MENSAGEM" ToRole="MENSAGEM_ANEXO" />
           <NavigationProperty Name="TEMPLATE" Relationship="SMS_DatabaseModel.FK_MENSAGEM_TEMPLATE" FromRole="MENSAGEM" ToRole="TEMPLATE" />
           <Property Name="MENS_IN_TIPO_SMS" Type="Int32" />
+          <Property Name="MENS_TX_RETORNOS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MENS_IN_OPERACAO" Type="Int32" />
+          <NavigationProperty Name="CAMPANHA" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA" FromRole="MENSAGEM" ToRole="CAMPANHA" />
         </EntityType>
         <EntityType Name="MENSAGEM_CAMPANHA">
           <Key>
@@ -2398,6 +2424,18 @@
             </Principal>
             <Dependent Role="MENSAGEM">
               <PropertyRef Name="TEMP_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENSAGEM_CAMPANHA">
+          <End Type="SMS_DatabaseModel.CAMPANHA" Role="CAMPANHA" Multiplicity="0..1" />
+          <End Type="SMS_DatabaseModel.MENSAGEM" Role="MENSAGEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAMPANHA">
+              <PropertyRef Name="CAMP_CD_ID" />
+            </Principal>
+            <Dependent Role="MENSAGEM">
+              <PropertyRef Name="CAMP_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2775,6 +2813,8 @@
           <EntitySetMapping Name="MENSAGEM">
             <EntityTypeMapping TypeName="SMS_DatabaseModel.MENSAGEM">
               <MappingFragment StoreEntitySet="MENSAGEM">
+                <ScalarProperty Name="MENS_IN_OPERACAO" ColumnName="MENS_IN_OPERACAO" />
+                <ScalarProperty Name="MENS_TX_RETORNOS" ColumnName="MENS_TX_RETORNOS" />
                 <ScalarProperty Name="MENS_IN_TIPO_SMS" ColumnName="MENS_IN_TIPO_SMS" />
                 <ScalarProperty Name="TEMP_CD_ID" ColumnName="TEMP_CD_ID" />
                 <ScalarProperty Name="CAMP_CD_ID" ColumnName="CAMP_CD_ID" />

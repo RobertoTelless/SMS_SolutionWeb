@@ -128,6 +128,13 @@ namespace ApplicationServices.Services
 
                 // Persiste
                 Int32 volta = _baseService.Create(item, log, idAss);
+
+                // Processa envio
+
+
+
+
+
                 return volta;
             }
             catch (Exception ex)

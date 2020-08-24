@@ -33,6 +33,9 @@ namespace SMS_Presentation.ViewModels
         public Nullable<int> CAMP_CD_ID { get; set; }
         public Nullable<int> TEMP_CD_ID { get; set; }
         public Nullable<int> MENS_IN_TIPO_SMS { get; set; }
+        public string MENS_TX_RETORNOS { get; set; }
+        public Nullable<int> MENS_IN_OPERACAO { get; set; }
+        public Nullable<int> MENS_IN_STATUS { get; set; }
 
         public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -47,5 +50,6 @@ namespace SMS_Presentation.ViewModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MENSAGEM_ANEXO> MENSAGEM_ANEXO { get; set; }
         public virtual TEMPLATE TEMPLATE { get; set; }
+        public virtual CAMPANHA CAMPANHA { get; set; }
     }
 }

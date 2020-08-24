@@ -5,23 +5,58 @@
 }
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="page-title"> 
-        <h3 class="title">Envio de SMS</h3> 
+        <h3 class="title">Mensagens</h3> 
         <br />
         <ol class="breadcrumb">
             <li>
                 <a href="@Url.Action("CarregarBase", "BaseAdmin")">Dashboard</a>
             </li>
+            <li>
+                <a href="@Url.Action("MontarTelaMensagem", "Mensagem")">Central de Mensagens</a>
+            </li>
             <li class="active">
-                <strong>Envio de SMS</strong>
+                <strong>Mensagens - Visualização</strong>
             </li>
         </ol>
         <br />
     </div>
     <div class="row">
+        @if (Model.MENS_DT_ENVIO != null)
+        {
+            <div class="col-lg-3">
+                <div class="widget style1 blue-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-paper-plane fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-normal">Enviada em: @Model.MENS_DT_ENVIO.Value.ToShortDateString()</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.MENS_DT_AGENDA != null & Model.MENS_DT_AGENDA > DateTime.Today.Date)
+        {
+            <div class="col-lg-3">
+                <div class="widget style1 yellow-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-paper-plane fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-normal">Agendada para: @Model.MENS_DT_AGENDA.Value.ToShortDateString()</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row">
         <div class="col-lg-12 col-md-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-xs-12 ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Envio de SMS</h5>
+                    <h5>Mensagens - Visualização</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -45,11 +80,11 @@
                     }
                     <div class="panel-body">
                         <div class="form-group">
-                            @Html.ButtonLinkIndex(text: "Cancelar", action: "Voltar", controller: "Mensagem")
+                            @Html.ButtonLinkIndex(text: "Voltar", action: "VoltarBaseMensagem", controller: "Mensagem")
                         </div>
                         <div class="row">
-                            <div class="col-lg-9 col-md-9 col-xs-12" style="border-style:solid; border-color:darkblue; border-width:thin;">
-                                @using (Html.BeginForm("IncluirMensagem", "Mensagem", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id = "pwd-container1" }))
+                            <div class="col-lg-9 col-md-9 col-xs-12">
+                                @using (Html.BeginForm("VerMensagem", "Mensagem", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id = "pwd-container1" }))
                                 {
                                     @Html.HiddenFor(m => m.USUA_CD_ID)
                                     @Html.HiddenFor(m => m.ASSI_CD_ID)
@@ -57,83 +92,85 @@
                                     @Html.HiddenFor(m => m.MENS_DT_DATA)
                                     @Html.HiddenFor(m => m.MENS_IN_ATIVO)
                                     @Html.HiddenFor(m => m.MENS_DT_DATA)
-                                    <br />
+                                    <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
+                                        <div class="col-lg-3 col-md-3 col-xs-12">
+                                            Data de Criação
+                                            @Html.TextBoxFor(m => m.MENS_DT_DATA, "{0:dd/MM/yyyy}", new { @class = "form-control", autofocus = true, @readonly="readonly"})
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-xs-12">
+                                            Responsável
+                                            @Html.TextBoxFor(m => m.USUARIO.USUA_NM_NOME, new { @class = "form-control", autofocus = true, @readonly="readonly"})
+                                        </div>
+                                    </div>
                                     <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
                                         <div class="col-lg-1 col-md-1 col-xs-12" style="vertical-align:middle; text-align:center">
                                             <h4>Para</h4>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-xs-12">
-                                            @Html.DropDownListFor(m => m.CONT_CD_ID, (SelectList)ViewBag.Contatos, "Pessoa", new { @class = "form-control", autofocus = true })                            
-                                            @Html.ValidationMessageFor(m => m.CONT_CD_ID, "",new { @style="color:red" })
+                                            @Html.TextBoxFor(m => m.CONTATO.CONT_NM_NOME, new { @class = "form-control", autofocus = true, @readonly="readonly"})
                                         </div>
                                         <div class="col-lg-1 col-md-1 col-xs-12" style="vertical-align:middle; text-align:center">
                                             <h4>ou</h4>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-xs-12">
-                                            @Html.DropDownListFor(m => m.GRUP_CD_ID, (SelectList)ViewBag.Grupos, "Grupo", new { @class = "form-control", autofocus = true })                            
-                                            @Html.ValidationMessageFor(m => m.GRUP_CD_ID, "",new { @style="color:red" })
+                                            @Html.TextBoxFor(m => m.GRUPO.GRUP_NM_NOME, new { @class = "form-control", autofocus = true, @readonly="readonly"})
                                         </div>
                                         <div class="col-lg-1 col-md-1 col-xs-12" style="vertical-align:middle; text-align:center">
                                             <h4>ou</h4>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-xs-12">
-                                            @Html.DropDownListFor(m => m.CAMP_CD_ID, (SelectList)ViewBag.Campanhas, "Campanha", new { @class = "form-control", autofocus = true })                            
-                                            @Html.ValidationMessageFor(m => m.CAMP_CD_ID, "",new { @style="color:red" })
+                                            @Html.TextBoxFor(m => m.CAMPANHA.CAMP_NM_NOME, new { @class = "form-control", autofocus = true, @readonly="readonly"})
                                         </div>
+                                    </div>
+                                    <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
+                                        @if (Model.MENS_DT_ENVIO != null)
+                                        {
+                                            <div class="col-lg-3 col-md-3 col-xs-12">
+                                                Data de Envio
+                                                @Html.TextBoxFor(m => m.MENS_DT_ENVIO, "{0:dd/MM/yyyy}", new { @class = "form-control", autofocus = true, @readonly="readonly"})
+                                            </div>
+                                        }
+                                        @if (Model.MENS_DT_AGENDA != null & Model.MENS_DT_AGENDA > DateTime.Today.Date)
+                                        {
+                                            <div class="col-lg-3 col-md-3 col-xs-12">
+                                                Agendada para
+                                                @Html.TextBoxFor(m => m.MENS_DT_AGENDA, "{0:dd/MM/yyyy}", new { @class = "form-control", autofocus = true, @readonly="readonly"})
+                                            </div>
+                                        }
                                     </div>
                                     <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
                                         <div class="col-lg-2 col-md-2 col-xs-12" style="vertical-align:middle; text-align:left">
-                                            <h4>Mensagem</h4>   
+                                            <h4>Mensagem</h4>
                                         </div>
-                                        <div class="col-lg-3 col-md-3 col-xs-12" style="vertical-align:middle; text-align:center">
-                                            @Html.ButtonLinkIndex(text: "Importar Dados", action: "ImportarDados", controller: "Mensagem", buttonClass: "white")
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-xs-12">
-                                            @Html.DropDownListFor(m => m.TEMP_CD_ID, (SelectList)ViewBag.Templates, "Modelos de Mensagens", new { @class = "form-control", autofocus = true })                            
-                                            @Html.ValidationMessageFor(m => m.TEMP_CD_ID, "",new { @style="color:red" })
-                                        </div>
+                                        @if (Model.TEMPLATE != null)
+                                        {
+                                            <div class="col-lg-3 col-md-3 col-xs-12">
+                                                @Html.TextBoxFor(m => m.TEMPLATE.TEMP_NM_NOME, new { @class = "form-control", autofocus = true, @readonly="readonly"})
+                                            </div>
+                                        }
                                     </div>
                                     <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
                                         <div class="col-lg-12 col-md-12 col-xs-12">
-                                            @Html.TextAreaFor(m => m.MENS_TX_TEXTO, new { @class = "form-control", style = "width: 100%; height: 300px;", autofocus = true })
-                                            @Html.ValidationMessageFor(m => m.MENS_TX_TEXTO, "", new { @style = "color:red" })
+                                            @Html.TextAreaFor(m => m.MENS_TX_TEXTO, new { @class = "form-control", style = "width: 100%; height: 300px;", autofocus = true, @readonly="readonly" })
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-xs-12" style="vertical-align:middle; text-align:left">
                                             <h5>Caracteres Restantes 160/160</h5>
                                         </div>
                                     </div>
-                                    <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
-                                        <div class="col-lg-3 col-md-3 col-xs-12">
-                                            Tipo de SMS
-                                            @Html.DropDownListFor(m => m.MENS_IN_TIPO_SMS, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control", autofocus = true })                            
-                                            @Html.ValidationMessageFor(m => m.MENS_IN_TIPO_SMS, "",new { @style="color:red" })
-                                        </div>
-                                        <div class="col-lg-2 col-md-2 col-xs-12">
-                                            Operação
-                                            @Html.DropDownListFor(m => m.MENS_IN_OPERACAO, (SelectList)ViewBag.Operacoes, "Selecionar", new { @class = "form-control", autofocus = true })                            
-                                            @Html.ValidationMessageFor(m => m.MENS_IN_OPERACAO, "",new { @style="color:red" })
-                                        </div>
-                                        <div class="col-lg-5 col-md-5 col-xs-12">
-                                            @Html.ButtonActionSubmit(text: "Processar Operação Selecionada", buttonClass: "success", htmlAttributes: new { id = "basictoast" })
-                                            @Html.ButtonLinkIndex(text: "Cancelar", action: "Voltar", controller: "Mensagem")
-                                        </div>
-                                    </div>
                                 }
 
                             </div> 
-                            <div class="col-lg-3 col-md-3 col-xs-12" style="border-style:solid; border-color:darkblue; border-width:thin;">
+                            <div class="col-lg-3 col-md-3 col-xs-12">
                                 <br />
                                 <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
                                     <div class="col-lg-12 col-md-12 col-xs-12">
-                                        Mensagens de Retorno
-                                        @Html.TextAreaFor(m => m. MENS_TX_RETORNOS, new { @class = "form-control", style = "width: 100%; height: 100px;", autofocus = true })
+                                        Enviada para:
+                                        @Html.TextAreaFor(m => m. MENS_TX_RETORNOS, new { @class = "form-control", style = "width: 100%; height: 100px;", autofocus = true, @readonly="readonly" })
                                         @Html.ValidationMessageFor(m => m.MENS_TX_RETORNOS, "", new { @style = "color:red" })
                                     </div>
                                 </div>
                             </div>  
                         </div>
-
-
                     </div>
                 </div>
             </div>

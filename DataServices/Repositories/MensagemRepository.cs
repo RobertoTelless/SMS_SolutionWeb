@@ -80,7 +80,7 @@ namespace DataServices.Repositories
             }
             if (data != null)
             {
-                query = query.Where(p => DbFunctions.TruncateTime(p.MENS_DT_ENVIO) == DbFunctions.TruncateTime(data));
+                query = query.Where(p => DbFunctions.TruncateTime(p.MENS_DT_DATA) == DbFunctions.TruncateTime(data));
             }
             if (enviada != null & enviada == 1)
             {

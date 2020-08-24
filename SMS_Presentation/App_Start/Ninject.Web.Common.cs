@@ -149,6 +149,7 @@ namespace Presentation.Start
             kernel.Bind<IMensagemCampanhaRepository>().To<MensagemCampanhaRepository>();
             kernel.Bind<IMensagemContatoRepository>().To<MensagemContatoRepository>();
             kernel.Bind<IMensagemGrupoRepository>().To<MensagemGrupoRepository>();
+            kernel.Bind<IMensagemAnexoRepository>().To<MensagemAnexoRepository>();
 
         }
     }

@@ -81,6 +81,7 @@
         <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_GRUPO" />
         <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_ANEXO_MENSAGEM" />
         <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_TEMPLATE" />
+        <AssociationConnector Association="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

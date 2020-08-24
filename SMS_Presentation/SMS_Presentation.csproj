@@ -556,6 +556,7 @@
     <Content Include="Content\landing\header_one.jpg" />
     <Content Include="Content\landing\header_two.jpg" />
     <Content Include="Content\landing\word_map.png" />
+    <Content Include="Content\loadingDots.css" />
     <Content Include="Content\patterns\1.png" />
     <Content Include="Content\patterns\2.png" />
     <Content Include="Content\patterns\3.png" />
@@ -2680,6 +2681,10 @@
     <Content Include="Views\Configuracao\EditarConfiguracao.cshtml" />
     <Content Include="Views\Mensagem\MontarTelaMensagens.cshtml" />
     <Content Include="Views\Mensagem\IncluirMensagem.cshtml" />
+    <Content Include="Views\Mensagem\MontarTelaAgendadas.cshtml" />
+    <Content Include="Views\Mensagem\MontarTelaEnviadas.cshtml" />
+    <Content Include="Views\Contato\MontarTelaAniversariantes.cshtml" />
+    <Content Include="Views\Mensagem\VerMensagem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
