@@ -114,6 +114,8 @@
           <Property Name="CONF_NM_PORTA_SMTP" Type="varchar" MaxLength="50" />
           <Property Name="CONF_NM_EMAIL_EMISSOO" Type="varchar" MaxLength="150" />
           <Property Name="CONF_NM_SENHA_EMISSOR" Type="varchar" MaxLength="50" />
+          <Property Name="CONF_NM_USER_SMS" Type="varchar" MaxLength="50" />
+          <Property Name="CONF_NM_SENHA_SMS" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CONTATO">
           <Key>
@@ -1241,6 +1243,8 @@
           <Property Name="CONF_NM_EMAIL_EMISSOO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="CONF_NM_SENHA_EMISSOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ASSINANTE" Relationship="Self.FK_CONFIGURACAO_ASSINANTE" FromRole="CONFIGURACAO" ToRole="ASSINANTE" />
+          <Property Name="CONF_NM_USER_SMS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CONF_NM_SENHA_SMS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="LOG">
           <Key>
@@ -2487,6 +2491,8 @@
           <EntitySetMapping Name="CONFIGURACAO">
             <EntityTypeMapping TypeName="SMS_DatabaseModel.CONFIGURACAO">
               <MappingFragment StoreEntitySet="CONFIGURACAO">
+                <ScalarProperty Name="CONF_NM_SENHA_SMS" ColumnName="CONF_NM_SENHA_SMS" />
+                <ScalarProperty Name="CONF_NM_USER_SMS" ColumnName="CONF_NM_USER_SMS" />
                 <ScalarProperty Name="CONF_CD_ID" ColumnName="CONF_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="CONF_NR_FALHAS_DIA" ColumnName="CONF_NR_FALHAS_DIA" />

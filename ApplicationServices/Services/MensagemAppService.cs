@@ -9,6 +9,11 @@ using ApplicationServices.Interfaces;
 using ModelServices.Interfaces.EntitiesServices;
 using CrossCutting;
 using System.Text.RegularExpressions;
+using System.Web.Razor.Generator;
+using System.IO;
+using System.Net;
+using System.Text;
+using System.ComponentModel;
 
 namespace ApplicationServices.Services
 {
@@ -16,11 +21,19 @@ namespace ApplicationServices.Services
     {
         private readonly IMensagemService _baseService;
         private readonly IUsuarioService _usuService;
+        private readonly IConfiguracaoService _conService;
+        private readonly IContatoService _ctService;
+        private readonly IGrupoService _grService;
+        private readonly ICampanhaService _cpService;
 
-        public MensagemAppService(IMensagemService baseService, IUsuarioService usuService): base(baseService)
+        public MensagemAppService(IMensagemService baseService, IUsuarioService usuService, IConfiguracaoService conService, IContatoService ctService, IGrupoService grService, ICampanhaService cpService): base(baseService)
         {
             _baseService = baseService;
             _usuService = usuService;
+            _conService = conService;
+            _ctService = ctService;
+            _grService = grService;
+            _cpService = cpService;
         }
 
         public MENSAGEM CheckExist(MENSAGEM conta, Int32? idAss)
@@ -86,24 +99,24 @@ namespace ApplicationServices.Services
             }
         }
 
-        public Int32 ValidateCreate(MENSAGEM item, USUARIO usuario, Int32? idAss)
+        public String ValidateCreate(MENSAGEM item, USUARIO usuario, Int32? idAss)
         {
             try
             {
                 // Verifica existencia prévia
                 if (_baseService.CheckExist(item, idAss) != null)
                 {
-                    return 1;
+                    return "1";
                 }
 
                 // Criticas
                 if (item.CONT_CD_ID == null & item.CAMP_CD_ID == null & item.GRUP_CD_ID == null)
                 {
-                    return 2;
+                    return "2";
                 }
                 if (item.TEMP_CD_ID == null & item.MENS_TX_TEXTO == null)
                 {
-                    return 3;
+                    return "3";
                 }
 
                 // Completa objeto
@@ -114,6 +127,7 @@ namespace ApplicationServices.Services
                 item.MENS_IN_ENVIADA = 0;
                 item.ASSI_CD_ID = idAss.Value;
                 item.USUA_CD_ID = usuario.USUA_CD_ID;
+                item.MENS_NM_NOME = "-";
 
                 // Monta Log
                 LOG log = new LOG
@@ -129,13 +143,128 @@ namespace ApplicationServices.Services
                 // Persiste
                 Int32 volta = _baseService.Create(item, log, idAss);
 
-                // Processa envio
+                // Monta lista de envio
+                List<CONTATO> lista = new List<CONTATO>();
+                String campanha = null;
+                if (item.CONT_CD_ID != null)
+                {
+                    CONTATO ct = _ctService.GetItemById(item.CONT_CD_ID.Value);                 
+                    lista.Add(ct);
+                }
+                if (item.GRUP_CD_ID != null)
+                {
+                    GRUPO gr = _grService.GetItemById(item.GRUP_CD_ID.Value);
+                    foreach (var obj in gr.GRUPO_CONTATO)
+                    {
+                        lista.Add(obj.CONTATO);
+                    }
+                }
+                if (item.CAMP_CD_ID != null)
+                {
+                    CAMPANHA cp = _cpService.GetItemById(item.CAMP_CD_ID.Value);
+                    foreach (var obj in cp.CAMPANHA_CONTATO)
+                    {
+                        lista.Add(obj.CONTATO);
+                    }
+                    campanha = cp.CAMP_NM_NOME;
+                }
+
+                // Monta token
+                CONFIGURACAO conf = _conService.GetItemById(1);
+                String text = conf.CONF_NM_USER_SMS + ":" + conf.CONF_NM_SENHA_SMS;
+                byte[] textBytes = Encoding.UTF8.GetBytes(text);
+                String token = Convert.ToBase64String(textBytes);
+                String auth = "Basic " + token;
+
+                // Monta routing
+                String routing = item.MENS_IN_TIPO_SMS.ToString();
+
+                // Monta texto
+                String texto = String.Empty;
+                if (item.TEMPLATE != null)
+                {
+                    texto = item.TEMPLATE.TEMP_TX_TEXTO;
+                }
+                else
+                {
+                    texto = item.MENS_TX_TEXTO;
+                }
+
+                // inicia processo
+                List<String> resposta = new List<string>();
+                WebRequest request = WebRequest.Create("https://api.smsfire.com.br/v1/sms/send");
+                request.Headers["Authorization"] = auth;
+                request.Method = "POST";
+                request.ContentType = "application/json";
+
+                // Monta destinatarios
+                String listaDest = String.Empty;
+                if (lista.Count > 0)
+                {
+                    if (lista.Count <= 200)
+                    {
+                        foreach (var contato in lista)
+                        {
+                            if (listaDest.Length == 0)
+                            {
+                                listaDest += contato.CONT_NR_WHATSAPP;
+                            }
+                            else
+                            {
+                                listaDest += "," + contato.CONT_NR_WHATSAPP;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return "5";
+                    }
+                }
+                else
+                {
+                    return "4";
+                }
 
 
+                // Processa lista
+                String responseFromServer = null;
+                if (lista.Count > 0)
+                {
+                    foreach (var contato in lista)
+                    {
+                        // Monta mensagem
+                        String to = "{\"to\":[\"" + listaDest + "\"],";
+                        String from = "\"from\":\"smsfire\", ";
+                        String msg = "\"text\":\"" + texto + "\"}";
+                        if (campanha != null)
+                        {
+                            String camp = "\"campaignName\":\"" + campanha + "\"}";
+                        }
+                        String mensagem = to + from + msg;
 
+                        // Processa mensagem
+                        using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                        {
+                            streamWriter.Write(mensagem);
+                            streamWriter.Close();
+                        }
 
+                        WebResponse response = request.GetResponse();
+                        resposta.Add(response.ToString());
 
-                return volta;
+                        Stream dataStream = response.GetResponseStream();
+                        StreamReader reader = new StreamReader(dataStream);
+                        responseFromServer = reader.ReadToEnd();
+                        resposta.Add(responseFromServer);
+                        reader.Close();
+                        response.Close();
+                    }
+                }
+                else
+                {
+                    return "4";
+                }
+                return responseFromServer;
             }
             catch (Exception ex)
             {

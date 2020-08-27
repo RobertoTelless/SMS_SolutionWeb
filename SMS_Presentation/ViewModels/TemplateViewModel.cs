@@ -16,6 +16,7 @@ namespace SMS_Presentation.ViewModels
         [StringLength(50, MinimumLength = 1, ErrorMessage = "O NOME deve ter no minimo 1 caractere e no máximo 50.")]
         public string TEMP_NM_NOME { get; set; }
         [Required(ErrorMessage = "Campo TEXTO obrigatorio")]
+        [StringLength(160, ErrorMessage = "O TEXTO deve ter no máximo 160 caracteres.")]
         public string TEMP_TX_TEXTO { get; set; }
         [Required(ErrorMessage = "Campo DATA DE CRIAÇÃO obrigatorio")]
         [DataType(DataType.Date, ErrorMessage = "DATA DE CRIAÇÃO Deve ser uma data válida")]

@@ -221,8 +221,8 @@ namespace SMS_Presentation.Controllers
             ViewBag.Campanhas = new SelectList(camApp.GetAllItens(idAss), "CAMP_CD_ID", "CAMP_NM_NOME");
             ViewBag.Templates = new SelectList(temApp.GetAllItens(idAss), "TEMP_CD_ID", "TEMP_NM_NOME");
             List<SelectListItem> tipoSMS = new List<SelectListItem>();
-            tipoSMS.Add(new SelectListItem() { Text = "Long Code", Value = "1" });
-            tipoSMS.Add(new SelectListItem() { Text = "Short Code", Value = "2" });
+            tipoSMS.Add(new SelectListItem() { Text = "Long Code", Value = "0" });
+            tipoSMS.Add(new SelectListItem() { Text = "Short Code", Value = "1" });
             ViewBag.Tipos = new SelectList(tipoSMS, "Value", "Text");
             List<SelectListItem> operacao = new List<SelectListItem>();
             operacao.Add(new SelectListItem() { Text = "Enviar", Value = "1" });
@@ -241,6 +241,17 @@ namespace SMS_Presentation.Controllers
             vm.MENS_IN_TIPO_SMS = 1;
             vm.USUA_CD_ID = usuarioLogado.USUA_CD_ID;
             vm.MENS_TX_RETORNOS = null;
+            vm.MENS_IN_OPERACAO = 1;
+            vm.MENS_NM_NOME = "-";
+            if ((String)Session["Resposta"] != null)
+            {
+                vm.MENS_TX_RETORNOS = (String)Session["Resposta"];
+                Session["Resposta"] = null;
+            }
+            else
+            {
+                vm.MENS_TX_RETORNOS = String.Empty;
+            }
             return View(vm);
         }
 
@@ -252,6 +263,18 @@ namespace SMS_Presentation.Controllers
                 return RedirectToAction("Login", "ControleAcesso");
             }
             Int32 idAss = (Int32)Session["IdAssinante"];
+            ViewBag.Contatos = new SelectList(conApp.GetAllItens(idAss), "CONT_CD_ID", "CONT_NM_NOME");
+            ViewBag.Grupos = new SelectList(gruApp.GetAllItens(idAss), "GRUP_CD_ID", "GRUP_NM_NOME");
+            ViewBag.Campanhas = new SelectList(camApp.GetAllItens(idAss), "CAMP_CD_ID", "CAMP_NM_NOME");
+            ViewBag.Templates = new SelectList(temApp.GetAllItens(idAss), "TEMP_CD_ID", "TEMP_NM_NOME");
+            List<SelectListItem> tipoSMS = new List<SelectListItem>();
+            tipoSMS.Add(new SelectListItem() { Text = "Long Code", Value = "0" });
+            tipoSMS.Add(new SelectListItem() { Text = "Short Code", Value = "1" });
+            ViewBag.Tipos = new SelectList(tipoSMS, "Value", "Text");
+            List<SelectListItem> operacao = new List<SelectListItem>();
+            operacao.Add(new SelectListItem() { Text = "Enviar", Value = "1" });
+            operacao.Add(new SelectListItem() { Text = "Agendar", Value = "2" });
+            ViewBag.Operacoes = new SelectList(operacao, "Value", "Text");
             if (ModelState.IsValid)
             {
                 try
@@ -259,25 +282,37 @@ namespace SMS_Presentation.Controllers
                     // Executa a operação
                     MENSAGEM item = Mapper.Map<MensagemViewModel, MENSAGEM>(vm);
                     USUARIO usuarioLogado = (USUARIO)Session["UserCredentials"];
-                    Int32 volta = baseApp.ValidateCreate(item, usuarioLogado, idAss);
+                    String volta = baseApp.ValidateCreate(item, usuarioLogado, idAss);
 
                     // Verifica retorno
-                    if (volta == 1)
+                    if (volta == "1")
                     {
                         Session["MensMensagem"] = 1;
                         ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture));
                         return View(vm);
                     }
-                    if (volta == 2)
+                    if (volta == "2")
                     {
                         Session["MensMensagem"] = 2;
                         ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0042", CultureInfo.CurrentCulture));
                         return View(vm);
                     }
-                    if (volta == 3)
+                    if (volta == "3")
                     {
                         Session["MensMensagem"] = 3;
                         ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0043", CultureInfo.CurrentCulture));
+                        return View(vm);
+                    }
+                    if (volta == "4")
+                    {
+                        Session["MensMensagem"] = 4;
+                        ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0044", CultureInfo.CurrentCulture));
+                        return View(vm);
+                    }
+                    if (volta == "5")
+                    {
+                        Session["MensMensagem"] = 5;
+                        ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0045", CultureInfo.CurrentCulture));
                         return View(vm);
                     }
 
@@ -289,6 +324,7 @@ namespace SMS_Presentation.Controllers
                     Session["Mensagem"] = item;
                     Session["MensMensagem"] = 0;
                     Session["IdVolta"] = item.MENS_CD_ID;
+                    Session["Resposta"] = volta;
                     return RedirectToAction("IncluirMensagem");
                 }
                 catch (Exception ex)

@@ -106,6 +106,7 @@ namespace SMS_Presentation.Controllers
             Session["MensConfiguracao"] = 0;
             Session["ListaMensagem"] = null;
             Session["MensMensagem"] = 0;
+            Session["Resposta"] = null;
 
             USUARIO usu = usuApp.GetItemById((Int32)Session["IdUsuario"]);
             UsuarioViewModel vm = Mapper.Map<USUARIO, UsuarioViewModel>(usu);

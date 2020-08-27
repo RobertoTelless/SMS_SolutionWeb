@@ -446,5 +446,23 @@ namespace SMS_Presentation.App_Start {
                 return ResourceManager.GetString("M0043", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Nenhum destinatário foi encontrado.
+        /// </summary>
+        internal static string M0044 {
+            get {
+                return ResourceManager.GetString("M0044", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Lista com mais de 200 destinatários.
+        /// </summary>
+        internal static string M0045 {
+            get {
+                return ResourceManager.GetString("M0045", resourceCulture);
+            }
+        }
     }
 }

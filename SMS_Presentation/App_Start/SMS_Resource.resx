@@ -246,4 +246,10 @@
   <data name="M0043" xml:space="preserve">
     <value>Nenhuma mensagem ou template especificado</value>
   </data>
+  <data name="M0044" xml:space="preserve">
+    <value>Nenhum destinatário foi encontrado</value>
+  </data>
+  <data name="M0045" xml:space="preserve">
+    <value>Lista com mais de 200 destinatários</value>
+  </data>
 </root>

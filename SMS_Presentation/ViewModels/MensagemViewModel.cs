@@ -15,7 +15,6 @@ namespace SMS_Presentation.ViewModels
         public int USUA_CD_ID { get; set; }
         [DataType(DataType.Date, ErrorMessage = "DATA Deve ser uma data válida")]
         public System.DateTime MENS_DT_DATA { get; set; }
-        [Required(ErrorMessage = "Campo NOME obrigatorio")]
         [StringLength(50, MinimumLength = 1, ErrorMessage = "O NOME deve ter no minimo 1 caractere e no máximo 50.")]
         public string MENS_NM_NOME { get; set; }
         public int MENS_IN_ENVIADA { get; set; }
@@ -25,7 +24,7 @@ namespace SMS_Presentation.ViewModels
         [DataType(DataType.Date, ErrorMessage = "DATA DE AGENDAMENTO Deve ser uma data válida")]
         public Nullable<System.DateTime> MENS_DT_AGENDA { get; set; }
         [Required(ErrorMessage = "Campo TEXTO obrigatorio")]
-        [StringLength(200, ErrorMessage = "O TEXTO deve ter no máximo 200 caracteres.")]
+        [StringLength(160, ErrorMessage = "O TEXTO deve ter no máximo 160 caracteres.")]
         public string MENS_TX_TEXTO { get; set; }
         public Nullable<int> MENS_IN_ATIVO { get; set; }
         public Nullable<int> CONT_CD_ID { get; set; }

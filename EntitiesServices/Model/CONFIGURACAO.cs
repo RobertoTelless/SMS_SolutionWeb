@@ -21,6 +21,8 @@ namespace EntitiesServices.Model
         public string CONF_NM_PORTA_SMTP { get; set; }
         public string CONF_NM_EMAIL_EMISSOO { get; set; }
         public string CONF_NM_SENHA_EMISSOR { get; set; }
+        public string CONF_NM_USER_SMS { get; set; }
+        public string CONF_NM_SENHA_SMS { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
     }

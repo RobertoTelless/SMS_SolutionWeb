@@ -9,7 +9,7 @@ namespace ApplicationServices.Interfaces
 {
     public interface IMensagemAppService : IAppServiceBase<MENSAGEM>
     {
-        Int32 ValidateCreate(MENSAGEM perfil, USUARIO usuario, Int32? idAss);
+        String ValidateCreate(MENSAGEM perfil, USUARIO usuario, Int32? idAss);
         Int32 ValidateEdit(MENSAGEM perfil, MENSAGEM perfilAntes, USUARIO usuario, Int32? idAss);
         Int32 ValidateEdit(MENSAGEM perfil, Int32? idAss);
         Int32 ValidateDelete(MENSAGEM perfil, USUARIO usuario, Int32? idAss);
