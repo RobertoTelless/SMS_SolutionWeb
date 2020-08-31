@@ -207,11 +207,11 @@ namespace ApplicationServices.Services
                         {
                             if (listaDest.Length == 0)
                             {
-                                listaDest += contato.CONT_NR_WHATSAPP;
+                                listaDest += contato.CONT_NR_WHATSAPP + "\"";
                             }
                             else
                             {
-                                listaDest += "," + contato.CONT_NR_WHATSAPP;
+                                listaDest += ",\"" + contato.CONT_NR_WHATSAPP + "\"";
                             }
                         }
                     }
@@ -228,42 +228,37 @@ namespace ApplicationServices.Services
 
                 // Processa lista
                 String responseFromServer = null;
-                if (lista.Count > 0)
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
                 {
-                    foreach (var contato in lista)
+                    string json = "{\"to\":[\"" + listaDest + "]," +
+                        "\"from\":\"smsfire\", " +
+                        "\"text\":\"" + texto;
+                    if (campanha != null)
                     {
-                        // Monta mensagem
-                        String to = "{\"to\":[\"" + listaDest + "\"],";
-                        String from = "\"from\":\"smsfire\", ";
-                        String msg = "\"text\":\"" + texto + "\"}";
-                        if (campanha != null)
-                        {
-                            String camp = "\"campaignName\":\"" + campanha + "\"}";
-                        }
-                        String mensagem = to + from + msg;
-
-                        // Processa mensagem
-                        using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-                        {
-                            streamWriter.Write(mensagem);
-                            streamWriter.Close();
-                        }
-
-                        WebResponse response = request.GetResponse();
-                        resposta.Add(response.ToString());
-
-                        Stream dataStream = response.GetResponseStream();
-                        StreamReader reader = new StreamReader(dataStream);
-                        responseFromServer = reader.ReadToEnd();
-                        resposta.Add(responseFromServer);
-                        reader.Close();
-                        response.Close();
+                        json += "\"campaignName\":\"" + campanha + "\"}";
                     }
+                    else
+                    {
+                        json += "\"}";
+                    }
+
+                    //string json = "{\"to\":[\"5527997871093\"]," +
+                    //     "\"from\":\"smsfire\", "             +
+                    //     "\"text\":\"minha msg de texto csharp 2\"}";
+                    streamWriter.Write(json);
+                    streamWriter.Close();
+                    streamWriter.Dispose();
                 }
-                else
-                {
-                    return "4";
-                }
+
+                WebResponse response = request.GetResponse();
+                resposta.Add(response.ToString());
+
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream);
+                responseFromServer = reader.ReadToEnd();
+                resposta.Add(responseFromServer);
+                reader.Close();
+                response.Close();
                 return responseFromServer;
             }
             catch (Exception ex)
