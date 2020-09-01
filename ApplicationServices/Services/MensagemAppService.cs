@@ -168,6 +168,13 @@ namespace ApplicationServices.Services
                     }
                     campanha = cp.CAMP_NM_NOME;
                 }
+                else
+                {
+                    if (item.MENS_NM_CAMPANHA != null)
+                    {
+                        campanha = item.MENS_NM_CAMPANHA;
+                    }
+                }
 
                 // Monta token
                 CONFIGURACAO conf = _conService.GetItemById(1);
@@ -232,19 +239,9 @@ namespace ApplicationServices.Services
                 {
                     string json = "{\"to\":[\"" + listaDest + "]," +
                         "\"from\":\"smsfire\", " +
-                        "\"text\":\"" + texto;
-                    if (campanha != null)
-                    {
-                        json += "\"campaignName\":\"" + campanha + "\"}";
-                    }
-                    else
-                    {
-                        json += "\"}";
-                    }
+                        "\"campaignName\":\"" + campanha + "\", "+  
+                        "\"text\":\"" + texto + "\"}";
 
-                    //string json = "{\"to\":[\"5527997871093\"]," +
-                    //     "\"from\":\"smsfire\", "             +
-                    //     "\"text\":\"minha msg de texto csharp 2\"}";
                     streamWriter.Write(json);
                     streamWriter.Close();
                     streamWriter.Dispose();

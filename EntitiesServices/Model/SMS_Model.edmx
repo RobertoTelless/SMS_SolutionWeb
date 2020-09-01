@@ -196,6 +196,7 @@
           <Property Name="MENS_IN_TIPO_SMS" Type="int" />
           <Property Name="MENS_TX_RETORNOS" Type="text" />
           <Property Name="MENS_IN_OPERACAO" Type="int" />
+          <Property Name="MENS_NM_CAMPANHA" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="MENSAGEM_ANEXO">
           <Key>
@@ -2241,6 +2242,7 @@
           <Property Name="MENS_TX_RETORNOS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="MENS_IN_OPERACAO" Type="Int32" />
           <NavigationProperty Name="CAMPANHA" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA" FromRole="MENSAGEM" ToRole="CAMPANHA" />
+          <Property Name="MENS_NM_CAMPANHA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="MENSAGEM_CAMPANHA">
           <Key>
@@ -2819,6 +2821,7 @@
           <EntitySetMapping Name="MENSAGEM">
             <EntityTypeMapping TypeName="SMS_DatabaseModel.MENSAGEM">
               <MappingFragment StoreEntitySet="MENSAGEM">
+                <ScalarProperty Name="MENS_NM_CAMPANHA" ColumnName="MENS_NM_CAMPANHA" />
                 <ScalarProperty Name="MENS_IN_OPERACAO" ColumnName="MENS_IN_OPERACAO" />
                 <ScalarProperty Name="MENS_TX_RETORNOS" ColumnName="MENS_TX_RETORNOS" />
                 <ScalarProperty Name="MENS_IN_TIPO_SMS" ColumnName="MENS_IN_TIPO_SMS" />

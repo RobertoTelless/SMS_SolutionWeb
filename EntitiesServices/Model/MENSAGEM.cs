@@ -41,6 +41,7 @@ namespace EntitiesServices.Model
         public Nullable<int> MENS_IN_TIPO_SMS { get; set; }
         public string MENS_TX_RETORNOS { get; set; }
         public Nullable<int> MENS_IN_OPERACAO { get; set; }
+        public string MENS_NM_CAMPANHA { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

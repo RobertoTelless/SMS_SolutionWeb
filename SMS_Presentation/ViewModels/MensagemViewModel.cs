@@ -35,6 +35,8 @@ namespace SMS_Presentation.ViewModels
         public string MENS_TX_RETORNOS { get; set; }
         public Nullable<int> MENS_IN_OPERACAO { get; set; }
         public Nullable<int> MENS_IN_STATUS { get; set; }
+        [StringLength(50, ErrorMessage = "O NOME DA CAMPANHA deve ter no máximo 50 caracteres.")]
+        public string MENS_NM_CAMPANHA { get; set; }
 
         public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
