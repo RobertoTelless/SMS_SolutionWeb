@@ -464,5 +464,23 @@ namespace SMS_Presentation.App_Start {
                 return ResourceManager.GetString("M0045", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Um grupo não pode ter mais de 200 contatos vinculados.
+        /// </summary>
+        internal static string M0046 {
+            get {
+                return ResourceManager.GetString("M0046", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Uma campanha não pode ter mais de 200 contatos vinculados.
+        /// </summary>
+        internal static string M0047 {
+            get {
+                return ResourceManager.GetString("M0047", resourceCulture);
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace ApplicationServices.Services
 {
@@ -122,7 +123,6 @@ namespace ApplicationServices.Services
                 // Completa objeto
                 item.MENS_IN_ATIVO = 1;
                 item.MENS_DT_DATA = DateTime.Today.Date;
-                item.MENS_DT_AGENDA = null;
                 item.MENS_DT_ENVIO = null;
                 item.MENS_IN_ENVIADA = 0;
                 item.ASSI_CD_ID = idAss.Value;
@@ -232,6 +232,12 @@ namespace ApplicationServices.Services
                     return "4";
                 }
 
+                // Agendamento
+                String agenda = null;
+                if (item.MENS_DT_AGENDA != null)
+                {
+                    agenda = item.MENS_DT_AGENDA.Value.ToString("yyyy-MM-dd") + "12:00:00";
+                }
 
                 // Processa lista
                 String responseFromServer = null;
@@ -239,8 +245,10 @@ namespace ApplicationServices.Services
                 {
                     string json = "{\"to\":[\"" + listaDest + "]," +
                         "\"from\":\"smsfire\", " +
-                        "\"campaignName\":\"" + campanha + "\", "+  
-                        "\"text\":\"" + texto + "\"}";
+                        "\"campaignName\":\"" + campanha + "\", " +
+                        "\"text\":\"" + texto + "\", " +
+                        "\"schedule\":\"" + agenda + "\", " +
+                        "\"routing\":" + item.MENS_IN_TIPO_SMS.ToString() + "} ";
 
                     streamWriter.Write(json);
                     streamWriter.Close();

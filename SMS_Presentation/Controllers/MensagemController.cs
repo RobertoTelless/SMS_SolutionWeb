@@ -241,7 +241,6 @@ namespace SMS_Presentation.Controllers
             vm.MENS_IN_TIPO_SMS = 1;
             vm.USUA_CD_ID = usuarioLogado.USUA_CD_ID;
             vm.MENS_TX_RETORNOS = null;
-            vm.MENS_IN_OPERACAO = 1;
             vm.MENS_NM_NOME = "-";
             if ((String)Session["Resposta"] != null)
             {
@@ -554,6 +553,23 @@ namespace SMS_Presentation.Controllers
             return View(vm);
         }
 
+        [HttpPost]
+        public JsonResult RecuperarTemplate(Int32? id)
+        {
+            var mensagem = String.Empty;
+
+            // Filtro para caso o placeholder seja selecionado
+            if (id == null)
+            {
+                mensagem = String.Empty;
+            }
+            else
+            {
+                mensagem = temApp.GetItemById(id);
+            }
+
+            return Json(mensagem);
+        }
 
 
     }

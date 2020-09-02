@@ -252,4 +252,10 @@
   <data name="M0045" xml:space="preserve">
     <value>Lista com mais de 200 destinatários</value>
   </data>
+  <data name="M0046" xml:space="preserve">
+    <value>Um grupo não pode ter mais de 200 contatos vinculados</value>
+  </data>
+  <data name="M0047" xml:space="preserve">
+    <value>Uma campanha não pode ter mais de 200 contatos vinculados</value>
+  </data>
 </root>

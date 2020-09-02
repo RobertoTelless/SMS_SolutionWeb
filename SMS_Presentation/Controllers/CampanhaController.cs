@@ -262,6 +262,10 @@ namespace SMS_Presentation.Controllers
             {
                 ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0033", CultureInfo.CurrentCulture));
             }
+            if ((Int32)Session["MensCampanha"] == 3)
+            {
+                ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0047", CultureInfo.CurrentCulture));
+            }
 
             CAMPANHA item = baseApp.GetItemById(id);
             objetoAssAntes = item;
@@ -423,6 +427,14 @@ namespace SMS_Presentation.Controllers
                 Int32 idAss = (Int32)Session["IdAssinante"];
                 USUARIO usuarioLogado = (USUARIO)Session["UserCredentials"];
                 CAMPANHA item = Mapper.Map<CampanhaViewModel, CAMPANHA>(vm);
+
+                // verifica quantidade de contatos na campanha
+                if (item.CAMPANHA_CONTATO.Count >= 200)
+                {
+                    Session["MensCampanha"] = 3;
+                    ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0047", CultureInfo.CurrentCulture));
+                    return RedirectToAction("VoltarAnexoGrupo");
+                }
                 Int32 volta = baseApp.IncluirCampanhaContato(item, usuarioLogado, idAss);
 
                 // Verifica retorno

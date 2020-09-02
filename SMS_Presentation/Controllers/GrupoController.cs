@@ -259,6 +259,10 @@ namespace SMS_Presentation.Controllers
             {
                 ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0030", CultureInfo.CurrentCulture));
             }
+            if ((Int32)Session["MensGrupo"] == 2)
+            {
+                ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0046", CultureInfo.CurrentCulture));
+            }
 
             GRUPO item = baseApp.GetItemById(id);
             objetoAssAntes = item;
@@ -419,6 +423,15 @@ namespace SMS_Presentation.Controllers
                 Int32 idAss = (Int32)Session["IdAssinante"];
                 USUARIO usuarioLogado = (USUARIO)Session["UserCredentials"];
                 GRUPO item = Mapper.Map<GrupoViewModel, GRUPO>(vm);
+
+                // verifica quantidade de contatos no grupo
+                if (item.GRUPO_CONTATO.Count >= 200)
+                {
+                    Session["MensGrupo"] = 2;
+                    ModelState.AddModelError("", SMS_Resource.ResourceManager.GetString("M0046", CultureInfo.CurrentCulture));
+                    return RedirectToAction("VoltarAnexoGrupo");
+                }
+
                 Int32 volta = baseApp.IncluirGrupoContato(item, usuarioLogado, idAss);
 
                 // Verifica retorno
