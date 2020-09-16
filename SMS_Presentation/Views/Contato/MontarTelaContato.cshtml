@@ -155,9 +155,23 @@
                                         {
                                             <tr>
                                                 <td>@cond.CONT_NM_NOME</td>
-                                                <td>@cond.CATEGORIA_CONTATO.CACO_NM_NOME</td>
+                                                @if (cond.CATEGORIA_CONTATO != null)
+                                                {
+                                                    <td>@cond.CATEGORIA_CONTATO.CACO_NM_NOME</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>-</td>
+                                                }
                                                 <td>@cond.CACO_NM_CIDADE</td>
-                                                <td>@cond.UF.UF_SG_SIGLA</td>
+                                                @if (cond.UF != null)
+                                                {
+                                                    <td>@cond.UF.UF_SG_SIGLA</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>-</td>
+                                                }
                                                 <td>@cond.CONT_DT_NASCIMENTO.Value.ToShortDateString()</td>
                                                 <td>@cond.CONT_NR_WHATSAPP</td>
                                                 <td>@cond.CONT_NR_CELULAR</td>

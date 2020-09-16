@@ -57,6 +57,7 @@ namespace SMS_Presentation.Controllers
                 return RedirectToAction("Login", "ControleAcesso");
             }
             Session["IdVolta"] = id;
+            Session["IdVolta"] = id;
             NOTIFICACAO item = baseApp.GetItemById(id);
             item.NOTI_IN_VISTA = 1;
             item.NOTI_DT_VISTA = DateTime.Now;

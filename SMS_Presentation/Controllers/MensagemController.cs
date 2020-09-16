@@ -565,10 +565,19 @@ namespace SMS_Presentation.Controllers
             }
             else
             {
-                mensagem = temApp.GetItemById(id);
+                mensagem = temApp.GetItemById(id.Value).TEMP_TX_TEXTO;
             }
 
             return Json(mensagem);
+        }
+
+        public ActionResult ImportarDados()
+        {
+            if ((String)Session["Ativa"] == null)
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+            return RedirectToAction("CarregarDesenvolvimento", "BaseAdmin");
         }
 
 

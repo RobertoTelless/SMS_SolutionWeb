@@ -1762,6 +1762,8 @@
     <Content Include="fonts\font-awesome\scss\_stacked.scss" />
     <Content Include="fonts\font-awesome\scss\_variables.scss" />
     <Content Include="Scripts\api\typehead_collection.json" />
+    <Content Include="Scripts\characterCount.js" />
+    <Content Include="Scripts\ImagemModal.js" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <None Include="Properties\PublishProfiles\EnviaSMS - Web Deploy.pubxml" />
@@ -2230,6 +2232,8 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\notificationHandler.js" />
+    <Content Include="Scripts\notifier.js" />
     <Content Include="Scripts\plugins\blueimp\jquery.blueimp-gallery.min.js" />
     <Content Include="Scripts\plugins\bootstrap-markdown\bootstrap-markdown.js" />
     <Content Include="Scripts\plugins\bootstrap-markdown\markdown.js" />

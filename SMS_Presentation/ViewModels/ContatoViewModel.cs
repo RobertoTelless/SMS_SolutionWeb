@@ -35,12 +35,10 @@ namespace SMS_Presentation.ViewModels
         public Nullable<int> CLUB_CD_ID { get; set; }
         [StringLength(500, ErrorMessage = "OS DETALHES devem ter no máximo 500 caracteres.")]
         public string CONT_DS_DETALHES { get; set; }
-        [Required(ErrorMessage = "Campo E-MAIL obrigatorio")]
         [StringLength(100, MinimumLength = 1, ErrorMessage = "O E-MAIL deve ter no minimo 1 caractere e no máximo 100.")]
         public string CONT_NM_EMAIL { get; set; }
         [StringLength(50, ErrorMessage = "O TELEFONE deve ter no máximo 50 caracteres.")]
         public string CONT_NR_TELEFONE { get; set; }
-        [Required(ErrorMessage = "Campo CELULAR obrigatorio")]
         [StringLength(50, ErrorMessage = "O CELULAR deve ter no máximo 50 caracteres.")]
         public string CONT_NR_CELULAR { get; set; }
         public Nullable<int> CONT_IN_ATIVO { get; set; }

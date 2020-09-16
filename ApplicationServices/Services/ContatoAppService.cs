@@ -77,6 +77,10 @@ namespace ApplicationServices.Services
                 {
                     return 1;
                 }
+                if (item.CONT_NR_WHATSAPP.Substring(0,2) != "55")
+                {
+                    item.CONT_NR_WHATSAPP = "55" + item.CONT_NR_WHATSAPP;
+                }
 
                 // Completa objeto
                 item.CONT_IN_ATIVO = 1;

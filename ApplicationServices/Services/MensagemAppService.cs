@@ -246,9 +246,7 @@ namespace ApplicationServices.Services
                     string json = "{\"to\":[\"" + listaDest + "]," +
                         "\"from\":\"smsfire\", " +
                         "\"campaignName\":\"" + campanha + "\", " +
-                        "\"text\":\"" + texto + "\", " +
-                        "\"schedule\":\"" + agenda + "\", " +
-                        "\"routing\":" + item.MENS_IN_TIPO_SMS.ToString() + "} ";
+                        "\"text\":\"" + texto + "\"} ";
 
                     streamWriter.Write(json);
                     streamWriter.Close();
