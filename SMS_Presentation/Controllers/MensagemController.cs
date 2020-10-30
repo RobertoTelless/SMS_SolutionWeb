@@ -351,10 +351,11 @@ namespace SMS_Presentation.Controllers
             Int32 idAss = (Int32)Session["IdAssinante"];
 
             // Carrega listas
+            Session["ListaMensagem"] = null;
             if ((List<MENSAGEM>)Session["ListaMensagem"] == null)
             {
                 List<MENSAGEM> lista = baseApp.GetAllItens(idAss);
-                lista = lista.Where(p => p.MENS_DT_AGENDA != null & p.MENS_DT_AGENDA > DateTime.Today.Date).ToList();
+                lista = lista.Where(p => p.MENS_DT_AGENDA != null & p.MENS_DT_AGENDA > DateTime.Today.Date & p.MENS_IN_ENVIADA == 1).ToList();
                 listaMasterAss = lista;
                 Session["ListaMensagem"] = listaMasterAss;
             }
@@ -435,6 +436,7 @@ namespace SMS_Presentation.Controllers
             Int32 idAss = (Int32)Session["IdAssinante"];
 
             // Carrega listas
+            Session["ListaMensagem"] = null;
             if ((List<MENSAGEM>)Session["ListaMensagem"] == null)
             {
                 List<MENSAGEM> lista = baseApp.GetAllItens(idAss);

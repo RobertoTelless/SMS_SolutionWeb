@@ -127,7 +127,10 @@ namespace ApplicationServices.Services
                 item.MENS_IN_ENVIADA = 0;
                 item.ASSI_CD_ID = idAss.Value;
                 item.USUA_CD_ID = usuario.USUA_CD_ID;
-                item.MENS_NM_NOME = "-";
+                if (item.MENS_NM_NOME == null)
+                {
+                    item.MENS_NM_NOME = "-";
+                }
 
                 // Monta Log
                 LOG log = new LOG
@@ -236,17 +239,30 @@ namespace ApplicationServices.Services
                 String agenda = null;
                 if (item.MENS_DT_AGENDA != null)
                 {
-                    agenda = item.MENS_DT_AGENDA.Value.ToString("yyyy-MM-dd") + "12:00:00";
+                    agenda = item.MENS_DT_AGENDA.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                    //agenda = item.MENS_DT_AGENDA.Value.ToString();
                 }
 
                 // Processa lista
                 String responseFromServer = null;
                 using (var streamWriter = new StreamWriter(request.GetRequestStream()))
                 {
-                    string json = "{\"to\":[\"" + listaDest + "]," +
-                        "\"from\":\"smsfire\", " +
-                        "\"campaignName\":\"" + campanha + "\", " +
-                        "\"text\":\"" + texto + "\"} ";
+                    String json = null;
+                    if (agenda == null)
+                    {
+                        json = "{\"to\":[\"" + listaDest + "]," +
+                            "\"from\":\"smsfire\", " +
+                            "\"campaignName\":\"" + campanha + "\", " +
+                            "\"text\":\"" + texto + "\"} ";
+                    }
+                    else
+                    {
+                        json = "{\"to\":[\"" + listaDest + "]," +
+                            "\"from\":\"smsfire\", " +
+                            "\"campaignName\":\"" + campanha + "\", " +
+                            "\"schedule\":\"" + agenda + "\", " +
+                            "\"text\":\"" + texto + "\"} ";
+                    }
 
                     streamWriter.Write(json);
                     streamWriter.Close();
@@ -260,6 +276,13 @@ namespace ApplicationServices.Services
                 StreamReader reader = new StreamReader(dataStream);
                 responseFromServer = reader.ReadToEnd();
                 resposta.Add(responseFromServer);
+
+                // Completa objeto
+                item.MENS_DT_ENVIO = DateTime.Today.Date;
+                item.MENS_IN_ENVIADA = 1;
+                item.MENS_TX_RETORNOS = responseFromServer.ToString();
+                Int32 volta1 = _baseService.Create(item, log, idAss);
+
                 reader.Close();
                 response.Close();
                 return responseFromServer;

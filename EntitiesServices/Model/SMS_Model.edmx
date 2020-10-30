@@ -186,7 +186,7 @@
           <Property Name="MENS_IN_ENVIADA" Type="int" Nullable="false" />
           <Property Name="MENS_DT_ENVIO" Type="date" />
           <Property Name="MENS_TX_OBSERVACOES" Type="text" />
-          <Property Name="MENS_DT_AGENDA" Type="date" />
+          <Property Name="MENS_DT_AGENDA" Type="datetime" />
           <Property Name="MENS_TX_TEXTO" Type="text" Nullable="false" />
           <Property Name="MENS_IN_ATIVO" Type="int" />
           <Property Name="CONT_CD_ID" Type="int" />
@@ -2222,7 +2222,7 @@
           <Property Name="MENS_IN_ENVIADA" Type="Int32" Nullable="false" />
           <Property Name="MENS_DT_ENVIO" Type="DateTime" Precision="0" />
           <Property Name="MENS_TX_OBSERVACOES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="MENS_DT_AGENDA" Type="DateTime" Precision="0" />
+          <Property Name="MENS_DT_AGENDA" Type="DateTime" Precision="3" />
           <Property Name="MENS_TX_TEXTO" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ASSINANTE" Relationship="SMS_DatabaseModel.FK_MENSAGEM_ASSINANTE" FromRole="MENSAGEM" ToRole="ASSINANTE" />
           <NavigationProperty Name="MENSAGEM_CAMPANHA" Relationship="SMS_DatabaseModel.FK_MENSAGEM_CAMPANHA_MENSAGEM" FromRole="MENSAGEM" ToRole="MENSAGEM_CAMPANHA" />

@@ -118,8 +118,8 @@
                                             @Html.ValidationMessageFor(m => m.MENS_IN_OPERACAO, "",new { @style="color:red" })
                                         </div>
                                         <div id="agenda" class="col-lg-3 col-md-3 col-xs-12">
-                                            Data de Agendamento
-                                            @Html.TextBoxFor(m => m.MENS_DT_AGENDA, "{0:dd/MM/yyyy}", new { @class = "form-control date-picker", autofocus = true, @id="data"})
+                                            Data/Hora de Agendamento
+                                            @Html.TextBoxFor(m => m.MENS_DT_AGENDA, new { @class = "form-control datetime-picker", autofocus = true, @id="datahora"})
                                             @Html.ValidationMessageFor(m => m.MENS_DT_AGENDA, "",new { @style="color:red" })
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-xs-12">
@@ -158,6 +158,7 @@
     @Styles.Render("~/plugins/toastrStyles")
     @Styles.Render("~/plugins/touchSpinStyles")
     @Styles.Render("~/plugins/sweetAlertStyles")
+    <link href="~/Content/jquery-ui-timepicker-addon.min.css" rel="stylesheet" />
 }
 @section Scripts {
     @Scripts.Render("~/plugins/toastr")
@@ -170,6 +171,7 @@
     @Scripts.Render("~/plugins/iCheck")
     @Scripts.Render("~/plugins/passwordMeter")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+    <script src="~/Scripts/jquery-ui-timepicker-addon.min.js"></script>
 
     <script type="text/javascript" language="javascript">
         $(function () {
@@ -222,6 +224,39 @@
             $("#cel").mask("(99)99999-9999");
             $("#zap").mask("(99)99999-9999");
             $("#zap2").mask("(99)99999-9999");
+            $("#datahora").mask("99/99/9999 99:99:99");
+        });
+    </script>
+    <script type="text/javascript" language="javascript">
+        $(function () {
+            $('.datetime-picker').datetimepicker(
+                {
+                    dateFormat: 'dd/mm/yy',
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    nextText: 'Proximo',
+                    prevText: 'Anterior',
+                    controlType: 'select',
+                    showSecond: "false",
+                    timeFormat: 'HH:mm',
+                    locale: 'pt-br',
+                    hourText: 'Hora',
+                    minuteText: 'Minuto',
+                    secondText: 'Segundo',
+                    currentText: 'Agora',
+                    closeText: 'Feito',
+                    showOn: "focus"
+                }
+            )
+                .css("display", "normal")
+                .next("button").button({
+                    icons: { primary: "ui-icon-calendar" },
+                    label: "Selecione uma data",
+                    text: false
+                });
         });
     </script>
     <script type="text/javascript">
@@ -252,7 +287,7 @@
                 , type: 'POST'
                 , data: data
                 , success: function (r) {
-                    document.getElementById('Texto').value= r..
+                    document.getElementById('Texto').value = r
                     //console.log(r);
                 }
             });

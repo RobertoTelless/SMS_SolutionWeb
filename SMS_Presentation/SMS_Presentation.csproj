@@ -346,6 +346,7 @@
     <Compile Include="Controllers\TabelaAuxiliarController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\XXXController.cs" />
     <Compile Include="Extensions\HMTLHelperExtensions.cs" />
     <Compile Include="Extensions\MVCButtonExtensions.cs" />
     <Compile Include="Extensions\WebMvcExtensions.cs" />
@@ -2689,6 +2690,8 @@
     <Content Include="Views\Mensagem\MontarTelaEnviadas.cshtml" />
     <Content Include="Views\Contato\MontarTelaAniversariantes.cshtml" />
     <Content Include="Views\Mensagem\VerMensagem.cshtml" />
+    <Content Include="Views\ControleAcesso\Login1.cshtml" />
+    <Content Include="Views\XXX\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
